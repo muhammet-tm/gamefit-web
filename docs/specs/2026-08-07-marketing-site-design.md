@@ -68,9 +68,9 @@ content reference but not the design reference.
 
 | Layer | Choice | Rationale |
 |---|---|---|
-| Framework | Astro 5 | Ships zero JS by default. A marketing site is ~95% static; paying a React runtime cost on every load buys nothing. |
-| Interactive islands | React 18 | Four islands only. Matches the syntax already used in the app so the codebase stays legible to the owner. |
-| Styling | Tailwind CSS + CSS custom properties | Tokens in `tokens.css` are the source of truth; Tailwind consumes them. Mirrors the app's approach. |
+| Framework | Astro 7.2 | Ships zero JS by default. A marketing site is ~95% static; paying a React runtime cost on every load buys nothing. Requires Node ≥ 22.12. |
+| Interactive islands | React 19.2 via `@astrojs/react` 6 | Four islands only. Matches the syntax already used in the app so the codebase stays legible to the owner. |
+| Styling | Tailwind 4.3 via `@tailwindcss/vite` + CSS custom properties | Tailwind 4 is CSS-first: tokens are declared in `tokens.css` with `@theme` and there is no `tailwind.config.js`. This makes `tokens.css` genuinely the single source of truth rather than nominally so. |
 | Forms | Web3Forms | No account creation, no form-builder UI, no backend. Chosen specifically because setup is one access key rather than a configuration exercise. |
 | Hosting | Vercel | Already in use, free tier sufficient, static output. |
 | Testing | Playwright + axe-core | Playwright is already familiar in the sibling repo. |
