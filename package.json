@@ -31,12 +31,13 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "sharp": "^0.35.3",
     "sirv-cli": "^3.0.1",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   }
 }

@@ -298,7 +298,8 @@ git commit -m "feat: add design tokens as Tailwind 4 theme"
 `DESIGN.md` §3.1 requires fonts be self-hosted rather than loaded from Google's CDN — one fewer third-party request, and it removes the GDPR exposure.
 
 **Files:**
-- Create: `public/fonts/*.woff2`, `src/styles/global.css`
+- Create: `src/styles/global.css`
+- Modify: `package.json` (three `@fontsource` dependencies)
 
 - [ ] **Step 1: Install the fonts as packages**
 
