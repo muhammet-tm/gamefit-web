@@ -98,11 +98,16 @@ site broke this in its research badge; the new one must not.
 | Display and headings | Barlow Condensed | 900 | Uppercase, tight tracking |
 | Body and UI | DM Sans | 400, 500, 700 | Sentence case |
 | Figures and code | JetBrains Mono | 500 | Stats, DOI, tabular numbers |
+| Arabic, all roles | Tajawal | 500, 700, 900 | Latin fonts above have no Arabic coverage |
 
-All three are **self-hosted** as `woff2` with `font-display: swap`. They are
-not loaded from Google's CDN — that removes a third-party request on every
-page load and avoids the GDPR exposure German courts have already ruled on
-for Google Fonts.
+All are **self-hosted** as `woff2` with `font-display: swap`. They are not
+loaded from Google's CDN — that removes a third-party request on every page
+load and avoids the GDPR exposure German courts have already ruled on for
+Google Fonts.
+
+Font files are subset per language and loaded conditionally: Arabic routes
+never download Barlow Condensed, and English routes never download Tajawal.
+Bilingualism must not cost the English visitor a byte.
 
 ### 3.2 Scale
 
@@ -173,6 +178,38 @@ a divider, and never more than two colour bands visible at once.
 | `xl` | 1280px | Container reaches max width |
 
 Mobile-first. Layouts are authored for 375px and enhanced upward.
+
+---
+
+### 4.5 Bidirectional layout
+
+The site ships in English (LTR) and Arabic (RTL) from one stylesheet.
+
+**Use CSS logical properties everywhere.** `margin-inline-start`, not
+`margin-left`. `padding-inline-end`, not `padding-right`. `inset-inline-start`,
+not `left`. `text-align: start`, not `text-align: left`. Written this way, the
+entire layout mirrors correctly the moment `dir="rtl"` is set, with no
+direction-specific overrides.
+
+What mirrors and what does not:
+
+| Element | Behaviour in RTL |
+|---|---|
+| Layout, grids, text alignment | Mirrors |
+| Navigational arrows, chevrons | Mirrors — a "next" arrow points left |
+| Progress and XP bars | Mirrors — fills from the right |
+| Numerals and percentages | Do **not** mirror. `78%` stays `78%` |
+| Brand wordmark and logo | Does **not** mirror |
+| Product screenshots | Do **not** mirror. The app's UI is what it is |
+| Charts with a time axis | Do **not** mirror. Time reads left-to-right in both |
+
+Arabic has no condensed display equivalent to Barlow Condensed, so Arabic
+headings use Tajawal 900 without the uppercase transform — Arabic script has
+no letter case, and forcing `text-transform: uppercase` on it is a no-op that
+signals the design was never checked.
+
+Line heights increase slightly for Arabic (`1.75` body versus `1.65`) to give
+diacritics and descenders room.
 
 ---
 
@@ -248,8 +285,9 @@ Barlow Condensed 900, a label at `--fs-body` in muted, and an optional source
 line at `--fs-small`.
 
 **Every statistic carries its source.** "77%" with "Andrew Chen, 2023"
-beneath it is credible; "77%" alone is marketing. Any tile citing survey data
-states `n=51`.
+beneath it is credible; "77%" alone is marketing. Figures drawn from the user
+survey are attributed to the peer-reviewed research; the site does not print
+a participant count.
 
 ### 7.3 Feature card
 
