@@ -18,7 +18,11 @@ export default defineConfig({
     // Not `astro preview`: as of Astro 7 it daemonises when stdout is not a
     // TTY, exiting 0 immediately, which Playwright reads as "server died".
     // sirv serves the same dist/ output and stays in the foreground.
-    command: 'npm run build && npx sirv dist --port 4321',
+    // --dev disables sirv's boot-time file cache. Without it, a server kept
+    // alive by reuseExistingServer keeps serving the previous build's asset
+    // manifest and 404s the newly-hashed CSS and JS after a rebuild, which
+    // shows up as a rare, unreproducible test failure.
+    command: 'npm run build && npx sirv dist --port 4321 --dev',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
