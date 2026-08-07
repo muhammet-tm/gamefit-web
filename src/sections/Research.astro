@@ -1,0 +1,51 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import StatTile from '../components/StatTile.astro';
+import { paper, sdtPillars } from '../content/research';
+import { surveyStats } from '../content/stats';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+---
+<SectionShell id="research" eyebrow="Academic validation" title="Built on science, not hype." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    GameFit was peer-reviewed and published before it launched. That is the
+    standard we hold ourselves to.
+  </p>
+
+  <div class="mt-12 grid gap-5 lg:grid-cols-[1.6fr_1fr]">
+    <Card>
+      <p class="inline-flex rounded-[var(--radius-md)] border border-gf-violet/50 bg-gf-violet/15 px-3 py-1 text-xs font-bold text-gf-violet-text">
+        Springer · {paper.indexed}
+      </p>
+      <h3 class="mt-5 text-[length:var(--text-h3)] text-gf-text">{paper.title}</h3>
+      <p class="mt-4 text-sm text-gf-muted">{paper.authors.join(' · ')}</p>
+      <p class="mt-2 text-sm text-gf-text">{paper.venue}</p>
+      <p class="mt-4 text-gf-muted">{paper.abstract}</p>
+      <p class="mt-4 text-sm text-gf-muted">{paper.conference} — {paper.presentation}</p>
+      <a
+        href={paper.doiUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+        class="mt-6 inline-block font-mono text-sm text-gf-lime underline underline-offset-4"
+      >
+        Read the full paper — doi.org/{paper.doi}
+      </a>
+    </Card>
+
+    <div class="grid gap-5 content-start">
+      {surveyStats.map((stat) => <StatTile stat={stat} />)}
+    </div>
+  </div>
+
+  <h3 class="mt-16 text-[length:var(--text-h3)] text-gf-text">Grounded in Self-Determination Theory</h3>
+  <div class="mt-6 grid gap-5 md:grid-cols-3">
+    {sdtPillars.map((p) => (
+      <Card>
+        <h4 class="font-display text-xl uppercase text-gf-lime">{p.name}</h4>
+        <p class="mt-3 text-gf-muted">{p.body}</p>
+      </Card>
+    ))}
+  </div>
+</SectionShell>

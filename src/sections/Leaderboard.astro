@@ -1,0 +1,29 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+const mechanics = [
+  { title: 'STR · END · AGI · REC', body: 'Four stats tracked from every workout logged' },
+  { title: 'Earn coins, spend in the marketplace', body: 'Real fitness gear and nutrition rewards' },
+  { title: 'Global and friends leaderboards', body: 'Compete publicly or with your crew' },
+  { title: 'Weekly reset', body: 'Fresh competition every Monday at midnight UTC' },
+];
+---
+<SectionShell id="leaderboard" band="surface" eyebrow="Competition" title="Climb. Compete. Win." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    Weekly leaderboards reset every Monday at midnight UTC. Global rankings plus a
+    friends-only mode. Your avatar's rank reflects every rep you put in.
+  </p>
+
+  <div class="mt-12 grid gap-5 md:grid-cols-2">
+    {mechanics.map((m) => (
+      <Card>
+        <h3 class="text-[length:var(--text-h3)] text-gf-text">{m.title}</h3>
+        <p class="mt-2 text-gf-muted">{m.body}</p>
+      </Card>
+    ))}
+  </div>
+</SectionShell>

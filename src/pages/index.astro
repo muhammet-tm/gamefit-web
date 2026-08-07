@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../sections/Hero.astro';
 import Stats from '../sections/Stats.astro';
+import Features from '../sections/Features.astro';
+import Leaderboard from '../sections/Leaderboard.astro';
+import Research from '../sections/Research.astro';
 import { sections } from '../content/sections';
 
 const hero = sections.find((s) => s.id === 'hero')!;
@@ -9,4 +12,7 @@ const hero = sections.find((s) => s.id === 'hero')!;
 <BaseLayout title={hero.metaTitle} description={hero.metaDescription} path="/">
   <Hero />
   <Stats />
+  <Features />
+  <Leaderboard />
+  <Research />
 </BaseLayout>
