@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../content/site';
+---
+<BaseLayout
+  title="Privacy — GameFit"
+  description="What GameFit collects on this website, why, and how to have it removed."
+  path="/privacy"
+>
+  <section class="mx-auto max-w-[var(--container-narrow)] px-[clamp(1.25rem,5vw,4rem)] py-24">
+    <h1 class="text-[length:var(--text-h1)] text-gf-text">Privacy</h1>
+    <p class="mt-4 text-sm text-gf-muted">Last updated: 7 August 2026</p>
+
+    <div class="mt-10 space-y-8 text-gf-muted">
+      <div>
+        <h2 class="text-[length:var(--text-h3)] text-gf-text">What this site collects</h2>
+        <p class="mt-3">
+          Only what you type into a form. If you join the waitlist, that is your
+          email address and optionally your name and answer. If you send feedback,
+          it is your rating, your comments and optionally your email.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-[length:var(--text-h3)] text-gf-text">What it does not collect</h2>
+        <p class="mt-3">
+          There is no analytics, no advertising, no tracking pixels and no
+          third-party scripts on this website. It sets no cookies. Fonts are served
+          from this domain, not from a third party, so no external service is told
+          that you visited.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-[length:var(--text-h3)] text-gf-text">Where submissions go</h2>
+        <p class="mt-3">
+          Form submissions are delivered by Web3Forms, which emails them to us and
+          does not retain them. We store them in our email. We do not sell or share
+          them.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-[length:var(--text-h3)] text-gf-text">Removing your data</h2>
+        <p class="mt-3">
+          Email <a href={`mailto:${site.email}`} class="text-gf-lime underline underline-offset-4">{site.email}</a>
+          and we will delete your details. No account needed, no form to fill in.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-[length:var(--text-h3)] text-gf-text">The GameFit app</h2>
+        <p class="mt-3">
+          This page covers this website only. The GameFit application has its own
+          privacy policy covering accounts and workout data.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

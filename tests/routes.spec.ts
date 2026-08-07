@@ -1,9 +1,5 @@
 import { test, expect } from '@playwright/test';
-
-export const ROUTES = [
-  '/', '/stats', '/features', '/leaderboard', '/research',
-  '/roadmap', '/about', '/contact', '/beta', '/feedback', '/privacy',
-];
+import { ROUTES } from './routes';
 
 for (const route of ROUTES) {
   test(`${route} renders with exactly one h1 and no console errors`, async ({ page }) => {
