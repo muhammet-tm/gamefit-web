@@ -14,6 +14,14 @@
   --color-gf-success: #22C55E;
   --color-gf-error: #EF4444;
 
+  /* Rank tier colours — identical to the shipped app's tier palette, so the
+     site's emblems and the product's emblems are the same object. */
+  --color-tier-bronze: #CD8A4E;
+  --color-tier-silver: #B9BFCC;
+  --color-tier-gold: #FFB800;
+  --color-tier-platinum: #8FD3E8;
+  --color-tier-apex: #9664FF;
+
   --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
   --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
