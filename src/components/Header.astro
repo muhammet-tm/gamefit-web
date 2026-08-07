@@ -1,0 +1,51 @@
+---
+import { navSections } from '../content/sections';
+import MobileMenu from '../islands/MobileMenu';
+
+const isHome = Astro.url.pathname === '/';
+const items = navSections.map((s) => ({
+  label: s.navLabel as string,
+  href: isHome ? `#${s.id}` : (s.route as string),
+}));
+---
+<header
+  class="sticky top-0 z-40 border-b border-transparent bg-gf-bg/80 backdrop-blur-md transition-colors"
+  data-site-header
+>
+  <div class="mx-auto flex h-16 max-w-[var(--container-site)] items-center justify-between px-[clamp(1.25rem,5vw,4rem)]">
+    <a href="/" class="font-display text-2xl uppercase text-gf-lime">GameFit</a>
+
+    <nav aria-label="Primary" class="hidden md:block">
+      <ul class="flex items-center gap-8">
+        {items.map((item) => (
+          <li>
+            <a href={item.href} class="text-sm text-gf-muted transition-colors hover:text-gf-text">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/beta"
+        class="hidden rounded-md bg-gf-lime px-5 py-2.5 text-sm font-bold text-gf-bg transition-opacity hover:opacity-90 md:inline-block"
+      >
+        Join waitlist
+      </a>
+      <MobileMenu items={items} client:load />
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('[data-site-header]');
+  if (header) {
+    const onScroll = () => {
+      header.classList.toggle('border-gf-border', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
