@@ -36,6 +36,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "sharp": "^0.35.3",
+    "sirv-cli": "^3.0.1",
     "typescript": "^7.0.2"
   }
 }
