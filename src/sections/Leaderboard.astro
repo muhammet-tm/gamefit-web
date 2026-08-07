@@ -113,21 +113,21 @@ const mechanics = [
         Four attributes, built from what you actually log.
       </p>
 
-      <dl class="mt-6 space-y-4">
+      <ul class="mt-6 space-y-4">
         {statBlock.map((s) => (
-          <div>
+          <li>
             <div class="flex items-baseline justify-between gap-3">
-              <dt class="font-display text-base uppercase tracking-[0.1em] text-gf-text">
+              <p class="font-display text-base uppercase tracking-[0.1em] text-gf-text">
                 {s.key} <span class="ms-1 font-body text-xs font-normal normal-case tracking-normal text-gf-muted">{s.name}</span>
-              </dt>
-              <dd class="font-mono text-sm tabular-nums text-gf-text">{s.value}</dd>
+              </p>
+              <p class="font-mono text-sm tabular-nums text-gf-text">{s.value}</p>
             </div>
             <div aria-hidden="true" class="mt-2 h-1.5 overflow-hidden rounded-full bg-gf-elevated">
               <div class={`h-full rounded-full ${s.bar}`} style={`width:${s.value}%`}></div>
             </div>
-          </div>
+          </li>
         ))}
-      </dl>
+      </ul>
 
       <p class="mt-6 border-t border-gf-border pt-4 text-xs text-gf-muted">
         Illustrative values.
