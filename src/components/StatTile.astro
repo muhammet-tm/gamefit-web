@@ -1,0 +1,21 @@
+---
+import CountUp from '../islands/CountUp';
+import type { Stat } from '../content/stats';
+
+interface Props { stat: Stat; }
+const { stat } = Astro.props;
+
+const accentClass = {
+  lime: 'text-gf-lime',
+  amber: 'text-gf-amber',
+  violet: 'text-gf-violet-text',
+  plain: 'text-gf-text',
+}[stat.accent];
+---
+<div class="rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface p-6">
+  <p class={`font-display text-[length:var(--text-stat)] tabular-nums ${accentClass}`}>
+    <CountUp value={stat.value} client:visible />
+  </p>
+  <p class="mt-2 text-gf-text">{stat.label}</p>
+  <p class="mt-1 text-sm text-gf-muted">{stat.source}</p>
+</div>
