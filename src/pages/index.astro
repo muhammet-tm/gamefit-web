@@ -1,7 +1,12 @@
 ---
-import '../styles/tokens.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import Stats from '../sections/Stats.astro';
+import { sections } from '../content/sections';
+
+const hero = sections.find((s) => s.id === 'hero')!;
 ---
-<html lang="en">
-  <head><title>GameFit</title></head>
-  <body class="bg-gf-bg text-gf-lime"><h1>GameFit</h1></body>
-</html>
+<BaseLayout title={hero.metaTitle} description={hero.metaDescription} path="/">
+  <Hero />
+  <Stats />
+</BaseLayout>

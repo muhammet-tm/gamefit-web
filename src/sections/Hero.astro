@@ -1,0 +1,48 @@
+---
+import { site } from '../content/site';
+import { heroStats } from '../content/stats';
+import CountUp from '../islands/CountUp';
+---
+<section id="hero" class="bg-gf-bg pt-20 pb-[clamp(4rem,10vw,8rem)]">
+  <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)]">
+    <p class="inline-flex items-center gap-2 rounded-full border border-gf-lime/40 bg-gf-lime/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-lime">
+      AI-powered gamified fitness
+    </p>
+
+    <h1 class="mt-8 max-w-4xl text-[length:var(--text-hero)] text-gf-text">
+      Fitness<br />
+      <span class="text-gf-lime">that sticks.</span><br />
+      <span class="text-gf-amber">Finally.</span>
+    </h1>
+
+    <p class="mt-8 max-w-[52ch] text-lg text-gf-muted">
+      77% of fitness app users quit within three days. GameFit fixes that — with
+      AI coaching, avatar evolution, XP progression and social competition in one
+      adaptive loop.
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-lime px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
+        Join the waitlist →
+      </a>
+      <a href={site.appUrl} rel="noopener noreferrer" target="_blank"
+         class="rounded-[var(--radius-md)] border border-gf-border px-7 py-3.5 font-bold text-gf-text transition-colors hover:border-gf-muted">
+        Try the live app
+      </a>
+    </div>
+
+    <dl class="mt-16 grid max-w-2xl grid-cols-2 gap-8 border-t border-gf-border pt-8 sm:grid-cols-3">
+      {heroStats.map((s) => (
+        <div>
+          <dt class="sr-only">{s.label}</dt>
+          <dd>
+            <span class="block font-display text-4xl tabular-nums text-gf-lime">
+              <CountUp value={s.value} client:visible />
+            </span>
+            <span class="mt-1 block text-sm text-gf-muted">{s.label}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
