@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# environment — the Web3Forms key lives here; .env.example is committed instead
+.env
+.env.local
+.env.production
+
+# test artefacts
+test-results/
+playwright-report/
+.lighthouseci/
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*

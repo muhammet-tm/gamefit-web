@@ -1,0 +1,372 @@
+# GameFit Web — Design System
+
+The design reference for the GameFit marketing site. Every colour, size and
+motion rule the site uses is defined here. If a value appears in a component
+but not in this document, that component is wrong.
+
+This system is deliberately narrower than the GameFit app's. The app is a
+daily tool with light and dark themes, dense data views and 60 screens. This
+site is a single confident statement read once, on a phone, by someone
+deciding whether to take the founder seriously.
+
+---
+
+## 1. Identity
+
+**Name:** Dark RPG Athletic.
+
+The product turns exercise into a role-playing game. The design language
+should feel like the interface of a game you'd actually want to play —
+high-contrast, decisive, built from ranks and stat blocks and progress bars —
+without tipping into neon gamer clichés or looking unserious to an investor.
+
+Three rules hold that line:
+
+1. **Structure over decoration.** Depth comes from layered flat surfaces and
+   hairline borders. No gradients on backgrounds, no glow, no glassmorphism.
+2. **One accent does the work.** Lime is the brand. It marks the single most
+   important thing in any viewport and nothing else. An interface where
+   everything glows has no emphasis at all.
+3. **Real over illustrated.** Actual product screenshots, actual paper
+   citation, actual numbers. No stock photography, no abstract 3D blobs.
+
+---
+
+## 2. Colour
+
+### 2.1 Tokens
+
+Defined as CSS custom properties on `:root`. The site is dark-only, so there
+is one set of values and no theme switching.
+
+| Token | Value | Role |
+|---|---|---|
+| `--gf-bg` | `#0D0F14` | Page background |
+| `--gf-surface` | `#161A22` | Cards, panels |
+| `--gf-elevated` | `#1E2330` | Raised elements, inputs, hover states |
+| `--gf-border` | `#2A2F3A` | Hairline dividers and card edges |
+| `--gf-text` | `#FFFFFF` | Primary text |
+| `--gf-text-muted` | `#8A8F9E` | Secondary text, captions, labels |
+| `--gf-lime` | `#C8FF00` | Primary accent, CTAs, key figures |
+| `--gf-amber` | `#FFB800` | Secondary accent, streaks, "in progress" |
+| `--gf-violet` | `#7C3AED` | Tertiary accent — **large text and fills only** |
+| `--gf-violet-text` | `#A78BFA` | Violet for text under 24px |
+| `--gf-success` | `#22C55E` | Completed states |
+| `--gf-error` | `#EF4444` | Errors, validation failures |
+
+These match the app's dark-mode `--gf-*` tokens exactly, so the site and the
+product read as one brand.
+
+### 2.2 Measured contrast
+
+Contrast ratios against `--gf-bg` (`#0D0F14`), computed to WCAG 2.1 formula.
+These are calculated values, not estimates.
+
+| Foreground | Ratio | Body text (needs 4.5) | Large text (needs 3.0) |
+|---|---|---|---|
+| `#FFFFFF` | **19.0** | Pass | Pass |
+| `#C8FF00` lime | **16.4** | Pass | Pass |
+| `#FFB800` amber | **11.0** | Pass | Pass |
+| `#A78BFA` violet-text | **7.0** | Pass | Pass |
+| `#8A8F9E` muted | **5.9** | Pass | Pass |
+| `#7C3AED` violet | **3.3** | **FAIL** | Pass |
+
+**The violet rule.** `#7C3AED` fails AA for body text. It may be used for
+headings at 24px or larger, for backgrounds, and for borders. For any violet
+text below 24px, use `--gf-violet-text` (`#A78BFA`) instead. The old Base44
+site broke this in its research badge; the new one must not.
+
+### 2.3 Usage rules
+
+- **One lime element per viewport.** The primary CTA, or the single number
+  the section is about — never both.
+- Lime and amber never touch. Separate them with surface or space.
+- Never place lime text on white or on amber. Lime is a dark-background
+  colour only; on light fills it drops to roughly 1.3:1 and disappears.
+- Body copy is `--gf-text-muted`. Reserve pure white for headings and for
+  figures you want read first.
+- Semantic colours (`success`, `error`) are for state only, never decoration.
+
+---
+
+## 3. Typography
+
+### 3.1 Families
+
+| Role | Family | Weights | Notes |
+|---|---|---|---|
+| Display and headings | Barlow Condensed | 900 | Uppercase, tight tracking |
+| Body and UI | DM Sans | 400, 500, 700 | Sentence case |
+| Figures and code | JetBrains Mono | 500 | Stats, DOI, tabular numbers |
+
+All three are **self-hosted** as `woff2` with `font-display: swap`. They are
+not loaded from Google's CDN — that removes a third-party request on every
+page load and avoids the GDPR exposure German courts have already ruled on
+for Google Fonts.
+
+### 3.2 Scale
+
+Fluid type using `clamp()`, so sizes interpolate with the viewport instead of
+jumping at breakpoints. Ratio is roughly 1.25 on mobile widening to 1.333 at
+desktop.
+
+| Token | Size | Use |
+|---|---|---|
+| `--fs-hero` | `clamp(3rem, 9vw, 6.5rem)` | Home hero only, one per site |
+| `--fs-h1` | `clamp(2.25rem, 5.5vw, 4rem)` | Section titles |
+| `--fs-h2` | `clamp(1.5rem, 3vw, 2.25rem)` | Sub-section titles |
+| `--fs-h3` | `clamp(1.125rem, 2vw, 1.375rem)` | Card titles |
+| `--fs-stat` | `clamp(2.5rem, 6vw, 4rem)` | Big figures in stat tiles |
+| `--fs-body` | `1rem` | Default body |
+| `--fs-body-lg` | `1.125rem` | Section intro paragraphs |
+| `--fs-small` | `0.875rem` | Captions, sources, footnotes |
+| `--fs-label` | `0.75rem` | Eyebrow labels, uppercase |
+
+### 3.3 Rules
+
+- Display headings: Barlow Condensed 900, `text-transform: uppercase`,
+  `letter-spacing: -0.02em`, `line-height: 0.95`.
+- Eyebrow labels above section titles: DM Sans 700, `--fs-label`, uppercase,
+  `letter-spacing: 0.12em`, coloured lime.
+- Body: `line-height: 1.65`, maximum measure `68ch`. Long lines are the most
+  common readability failure on wide screens.
+- Numerals in stat tiles use `font-variant-numeric: tabular-nums` so figures
+  don't shift width while counting up.
+- Never centre more than three consecutive lines of body copy.
+
+---
+
+## 4. Spacing and layout
+
+### 4.1 Scale
+
+A 4px base. Only these values are used — no arbitrary numbers.
+
+`4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 160`
+
+Exposed as `--space-1` through `--space-11`.
+
+### 4.2 Container
+
+| Token | Value | Use |
+|---|---|---|
+| `--container` | `1200px` | Standard section width |
+| `--container-narrow` | `760px` | Prose, legal pages, forms |
+| `--gutter` | `clamp(1.25rem, 5vw, 4rem)` | Horizontal page padding |
+
+### 4.3 Section rhythm
+
+Vertical padding between sections is `clamp(5rem, 12vw, 10rem)`. Consistent
+rhythm is what makes a long scrolling page feel composed rather than stacked.
+
+Adjacent sections alternate between `--gf-bg` and `--gf-surface` as their
+background to create bands. Never two identical backgrounds in a row without
+a divider, and never more than two colour bands visible at once.
+
+### 4.4 Breakpoints
+
+| Name | Width | Notes |
+|---|---|---|
+| `sm` | 480px | Large phones |
+| `md` | 768px | Tablets, two-column grids appear |
+| `lg` | 1024px | Desktop, full multi-column layouts |
+| `xl` | 1280px | Container reaches max width |
+
+Mobile-first. Layouts are authored for 375px and enhanced upward.
+
+---
+
+## 5. Elevation and shape
+
+There are exactly three surface levels: `--gf-bg`, `--gf-surface`,
+`--gf-elevated`. Depth is expressed by surface change plus a 1px
+`--gf-border`, never by shadow.
+
+| Token | Radius | Use |
+|---|---|---|
+| `--radius-sm` | `8px` | Inputs, small chips |
+| `--radius-md` | `12px` | Buttons, badges |
+| `--radius-lg` | `16px` | Cards, panels |
+| `--radius-full` | `9999px` | Pills, avatars |
+
+One shadow exists, used only on the sticky header once the page has scrolled:
+`0 1px 0 var(--gf-border)`. It is a hairline, not a glow.
+
+---
+
+## 6. Motion
+
+Motion confirms an action or reveals structure. It never decorates.
+
+| Token | Value | Use |
+|---|---|---|
+| `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals |
+| `--ease-in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` | State changes |
+| `--dur-fast` | `150ms` | Hover, focus, colour |
+| `--dur-mid` | `300ms` | Reveals, accordions |
+| `--dur-slow` | `600ms` | Counters, staggered groups |
+
+Rules:
+
+- Scroll reveals: 16px upward translate plus opacity, `--dur-mid`, triggered
+  by `IntersectionObserver`. Each element animates **once**. Nothing
+  re-animates on scroll-up — that is the single most irritating pattern on
+  marketing sites.
+- Stagger children by 60ms, capped at six items. Beyond that the last item
+  arrives too late to feel connected.
+- Stat counters run once on first view, `--dur-slow`, easing out.
+- Hover states are colour and border only. No scaling of cards, no lift.
+
+**Reduced motion is mandatory.** Under
+`@media (prefers-reduced-motion: reduce)` all transforms and counters are
+disabled and content renders in its final state immediately. Reveal
+animations must never be the only thing making content visible — content is
+visible by default and animation is additive, so a failed observer or a
+blocked script can never leave a blank page.
+
+---
+
+## 7. Components
+
+### 7.1 Buttons
+
+| Variant | Fill | Text | Border | Use |
+|---|---|---|---|---|
+| Primary | `--gf-lime` | `#0D0F14` | none | One per viewport |
+| Secondary | transparent | `--gf-text` | `--gf-border` | Alternate actions |
+| Ghost | transparent | `--gf-text-muted` | none | Tertiary, nav |
+
+Height 48px, horizontal padding `--space-6` (24px), `--radius-md`, DM Sans
+700. Hover shifts fill brightness by 8%; focus draws a 2px lime outline at
+2px offset. Minimum touch target is 44×44px everywhere.
+
+### 7.2 Stat tile
+
+The workhorse of the Stats section. Surface background, 1px border,
+`--radius-lg`, padding `--space-6`. Contains a figure at `--fs-stat` in
+Barlow Condensed 900, a label at `--fs-body` in muted, and an optional source
+line at `--fs-small`.
+
+**Every statistic carries its source.** "77%" with "Andrew Chen, 2023"
+beneath it is credible; "77%" alone is marketing. Any tile citing survey data
+states `n=51`.
+
+### 7.3 Feature card
+
+Surface background, 1px border, `--radius-lg`, padding `--space-7`. Icon in a
+48px rounded square tinted with the card's accent at 12% opacity. Title at
+`--fs-h3`, body in muted, optional tag chips at the foot.
+
+Cards in a row are equal height via grid, never via fixed pixel heights.
+
+### 7.4 Rank badge
+
+Borrowed from the app's rank system — the visual device that makes this site
+recognisably GameFit rather than a generic dark template. Pill shape,
+`--radius-full`, 1px border in the tier colour, background at 12% opacity,
+label in Barlow Condensed 900 uppercase at `--fs-label`.
+
+### 7.5 Forms
+
+Inputs: `--gf-elevated` background, 1px `--gf-border`, `--radius-sm`, 48px
+height, 16px text — **16px is required**, since iOS zooms the viewport on
+focus for anything smaller.
+
+Every input has a visible persistent label above it. Placeholder text is
+never a substitute for a label. Errors appear beneath the field in
+`--gf-error` with an icon, and are announced through `aria-live="polite"`.
+
+Four states, all designed: idle, focus, error, submitting/disabled.
+
+### 7.6 Header
+
+Sticky, 64px tall, `--gf-bg` at 80% opacity with `backdrop-filter: blur(12px)`,
+gaining a hairline bottom border once scrolled past 8px. Wordmark left, links
+centre, primary CTA right. Below `md` the links collapse into a full-screen
+overlay menu with a focus trap.
+
+---
+
+## 8. Imagery
+
+Product screenshots are the only photography on the site. They are real
+captures from the running app, exported as WebP with a PNG fallback, served
+responsively via `srcset`, and always dimensioned in HTML to prevent layout
+shift.
+
+Screenshots sit inside a device frame: 1px `--gf-border`, `--radius-lg` at
+roughly 12% of frame width, no drop shadow, no perspective tilt. Straight-on
+and honest.
+
+Every screenshot has descriptive alt text stating what the screen shows, not
+"app screenshot".
+
+---
+
+## 9. Accessibility
+
+Target: **WCAG 2.1 Level AA**, verified with automated axe tests on every
+route rather than asserted.
+
+Non-negotiable:
+
+- Contrast per §2.2, including the violet rule.
+- Visible focus indicators on every interactive element. Never
+  `outline: none` without a designed replacement.
+- Full keyboard operability, including the mobile menu, which traps focus
+  while open and returns focus to its trigger on close.
+- One `<h1>` per page; heading levels never skip.
+- Landmarks: `<header>`, `<nav>`, `<main>`, `<footer>`.
+- A skip-to-content link as the first focusable element.
+- Decorative icons `aria-hidden`; icon-only buttons carry `aria-label`.
+- Colour never carries meaning alone — roadmap phase status uses a text label
+  as well as a colour.
+- `prefers-reduced-motion` honoured throughout.
+
+---
+
+## 10. Performance budget
+
+Enforced, not aspirational. A build that exceeds these is a failed build.
+
+| Metric | Budget |
+|---|---|
+| JavaScript shipped on `/` | < 30 KB gzipped |
+| CSS | < 20 KB gzipped |
+| Largest Contentful Paint | < 1.5s on 4G |
+| Cumulative Layout Shift | < 0.05 |
+| Lighthouse Performance | ≥ 95 |
+| Lighthouse Accessibility | 100 |
+
+Astro ships zero JavaScript by default. Only four things become interactive
+islands: the mobile menu, the waitlist form, the feedback form, and the stat
+counters. Everything else is static HTML.
+
+For context, the GameFit app's bundle is 1,766 KB. This site should be under
+2% of that.
+
+---
+
+## 11. Anti-patterns
+
+Things this site will not do, recorded so they don't creep back in:
+
+- Gradient text, gradient backgrounds, glow effects, neon borders.
+- Cards that scale or lift on hover.
+- Animations that replay every time an element re-enters the viewport.
+- Autoplaying video or carousels.
+- Cookie banners — there are no non-essential cookies to consent to.
+- Statistics without a cited source.
+- Claims the product cannot demonstrate. Specifically: the avatar system is
+  layered 2D SVG and is never described as 3D, and the AI coach is Anthropic
+  Claude and is never described as OpenAI.
+- Fake urgency, countdown timers, or invented user counts.
+- A "founding team" grid implying employees. GameFit has one founder.
+
+---
+
+## 12. Design tokens reference
+
+The single source of truth is `src/styles/tokens.css`. This document explains
+intent; that file holds the values. If they disagree, the CSS file is
+authoritative and this document is the bug.
