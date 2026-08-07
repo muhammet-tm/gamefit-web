@@ -10,6 +10,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The header is sticky at 4rem. Without this, an anchor jump puts the
+   section's top edge — and on narrow viewports very nearly its first line of
+   text — underneath it. Covered by tests/anchors.spec.ts. */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 body {
   background-color: var(--color-gf-bg);
   color: var(--color-gf-text);

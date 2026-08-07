@@ -78,8 +78,21 @@ site broke this in its research badge; the new one must not.
 
 ### 2.3 Usage rules
 
-- **One lime element per viewport.** The primary CTA, or the single number
-  the section is about — never both.
+- **Lime marks one thing per section of content.** Persistent chrome — the
+  header wordmark and the primary CTA — is exempt. It is furniture a reader
+  stops seeing after the first screen, and counting it makes the rule
+  unfollowable. Within a section's own content, lime marks the single most
+  important element and nothing else.
+
+  *This rule was rewritten on 2026-08-08. It previously read "one lime element
+  per viewport", which every screen violated the moment a sticky header was
+  added. A rule the codebase cannot satisfy is worse than no rule, because it
+  trains everyone to ignore the document.*
+- Tier colours (bronze through apex) are a closed system. They identify rank
+  and nothing else, so a tier colour never doubles as a decorative accent.
+- Per-item accents are allowed where items are genuinely parallel and
+  distinct — the three feature cards each take one of lime, violet, amber.
+  That is categorisation, not decoration.
 - Lime and amber never touch. Separate them with surface or space.
 - Never place lime text on white or on amber. Lime is a dark-background
   colour only; on light fills it drops to roughly 1.3:1 and disappears.
