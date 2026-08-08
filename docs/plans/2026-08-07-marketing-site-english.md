@@ -2170,7 +2170,7 @@ const BANNED = [
   { pattern: /GPT-4/i, why: 'The app calls Anthropic Claude, not GPT-4 (spec §5.2)' },
   { pattern: /3D character|3D avatar/i, why: 'The avatar system is layered 2D SVG (spec §5.2)' },
   { pattern: /88%/, why: 'The survey figure is 78%, not 88% (spec §5.2)' },
-  { pattern: /\$100K|100,000/i, why: 'No raise amount may appear publicly (spec §5.5)' },
+  { pattern: /\$\s?\d+\s?K\b/i, why: 'No raise amount may appear publicly (spec §5.5)' },
   { pattern: /n\s*=\s*51/i, why: 'Sample size is not published on the site (spec §5.1)' },
 ];
 

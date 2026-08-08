@@ -191,7 +191,7 @@ corrected, confirmed with the owner on 2026-08-07:
 | Survey headline | 88% in one place, 78% in another | 78% throughout | Owner confirmed 78%. Sample size is not published on the site (see below). |
 | Paper DOI | Two conflicting DOIs across source docs | `10.1007/978-3-032-23883-2_13` | Verified: this resolves at Springer. The alternative, `10.1007/978-3-031-67286-7_13`, returns 404. |
 | ACR'26 | Not stated | Conference held in Amsterdam; presented remotely | Owner confirmed remote delivery. Wording must not imply travel. |
-| Fundraising | "$100K pre-seed raise" | "Raising pre-seed", no figure | Owner's decision. |
+| Fundraising | A specific raise figure | "Raising pre-seed", no figure | Owner's decision. |
 | Team | Four "founding team" cards | Solo founder, plus academic validation | Owner is the sole founder. Paper co-authors are credited in the paper byline only. |
 
 ### 5.3 Roadmap content
@@ -228,14 +228,17 @@ co-authors rather than team members.
 
 ### 5.5 Explicitly excluded
 
-Private information that must never appear on the public site:
+Categories of information that must never appear on the public site. The
+specifics live in the founder's private notes and are deliberately not
+restated here — this document is itself published with the repository, so
+naming them would leak exactly what the section exists to protect.
 
-- The rejected $80K/40% equity offer.
-- The 15% equity floor and any negotiating position.
-- Target raise amount.
-- Personal phone number, student ID, home address.
-- Named Hub71 contacts and relationship strategy.
-- Investor pipeline names.
+- Any previously received or rejected investment offer, and its terms.
+- Any equity floor, ceiling or negotiating position.
+- The target raise amount.
+- Personal contact details, national or student identifiers, home address.
+- Named accelerator or investor contacts, and relationship strategy.
+- The investor pipeline.
 
 ### 5.6 Known stale source material
 
