@@ -1,102 +1,209 @@
-# GameFit Web
+<div align="center">
 
-Marketing site for [GameFit](https://gamefit-app.vercel.app) — a fitness app
-built as an RPG. Astro, static output, deployed on Vercel.
+# GameFit
+
+### Fitness that sticks. Finally.
+
+Turning workouts into an RPG — AI coaching, avatar evolution, XP progression
+and social competition in one adaptive loop, grounded in peer-reviewed
+behavioural science.
+
+[**Visit the site**](https://gamefit-web.vercel.app) &nbsp;·&nbsp;
+[**Try the app**](https://gamefit-app.vercel.app) &nbsp;·&nbsp;
+[**Read the research**](https://doi.org/10.1007/978-3-032-23883-2_13)
+
+![Astro](https://img.shields.io/badge/Astro-7.2-BC52EE?logo=astro&logoColor=white)
+![Preact](https://img.shields.io/badge/Preact-10-673AB8?logo=preact&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-199%20passing-22C55E)
+![JavaScript](https://img.shields.io/badge/JS%20shipped-16.5%20KB-C8FF00)
+
+</div>
+
+![The GameFit marketing site](docs/assets/hero.webp)
+
+---
+
+## The problem
+
+**77% of people who install a fitness app stop using it within three days.**
+Not because they lack discipline — because nothing brings them back. No
+progression, no feedback that adapts, no reason to open it tomorrow.
+
+GameFit treats that as a motivation design problem rather than a willpower
+problem, and builds the answer on Self-Determination Theory: autonomy,
+competence, relatedness.
+
+| | |
+|---|---|
+| **AI coaching** | Personalised plans, nutrition guidance and 24/7 feedback, powered by Anthropic Claude Haiku 4.5. Every call runs server-side; the model never sees data from the browser. |
+| **Deep gamification** | XP and levels, 25 evolving avatar tiers rendered live, rank badges from Bronze to Apex, and four attributes tracked from every workout logged. |
+| **Social competition** | Global and friends leaderboards that reset every Monday, with coins redeemable for real fitness rewards. |
+
+<table>
+<tr>
+<td width="33%"><img src="public/screens/dashboard-420.webp" alt="GameFit home screen showing rank, XP progress and streak" /></td>
+<td width="33%"><img src="public/screens/coach-420.webp" alt="The AI coach screen with a personalised plan" /></td>
+<td width="33%"><img src="public/screens/leaderboard-420.webp" alt="The weekly leaderboard with ranked players" /></td>
+</tr>
+</table>
+
+## Built on published research
+
+GameFit was peer-reviewed and published **before** it launched, in Springer's
+*Lecture Notes in Networks and Systems* (Scopus indexed), and presented at
+ACR'26 in Amsterdam.
+
+> **GameFit: An AI-Powered Gamification for Enhancing User Retention in Mobile
+> Fitness Applications**
+> [doi.org/10.1007/978-3-032-23883-2_13](https://doi.org/10.1007/978-3-032-23883-2_13)
+
+![The research section](docs/assets/research.webp)
+
+## Where it stands
+
+The MVP is built, deployed and working end to end — accounts, onboarding, a
+server-authoritative economy, AI coaching, payments and account deletion.
+Neither mobile app has been submitted to the App Store or Play Store yet.
+
+Founded and built by [Muhammet Yalkapov](https://www.linkedin.com/in/muhammet-yalkapov)
+in Abu Dhabi. The research was supervised and validated by Dr. Murad Al-Rajab
+of Abu Dhabi University.
+
+---
+
+## About this repository
+
+This is the **marketing site** — the public face of GameFit. The product
+itself lives in [`gamefit-app`](https://github.com/muhammet-tm/gamefit-app).
+
+It is a static site with no backend, no database and no third-party scripts.
+That is deliberate: it stays up regardless of the app's infrastructure, and
+loads in well under a second on mobile data.
+
+![The leaderboard section](docs/assets/leaderboard.webp)
+
+### Why Astro rather than a React app
+
+A marketing site has near-opposite requirements to a product. It is read
+once, mostly static, and its job is to load instantly and be readable by
+crawlers. Astro renders everything to HTML at build time and ships zero
+JavaScript unless a component genuinely needs it.
+
+Four components do: the mobile menu, the stat counters and the two forms.
+They are Preact islands, hydrated individually.
+
+**That choice is measured, not assumed.** React's runtime cost 56 KB gzipped
+to run 1.6 KB of island logic — thirty-five bytes of framework per byte of
+behaviour. Swapping to Preact took total JavaScript from 60.8 KB to 13.6 KB.
+
+### What the build enforces
+
+Quality here is asserted by tests rather than claimed in a document. A build
+that breaks any of these fails.
+
+| Gate | What it does |
+|---|---|
+| **Accessibility** | axe-core on every route, zero violations, WCAG 2.1 AA. Runs on Chromium and WebKit. |
+| **Content accuracy** | Fails if the site ever claims OpenAI, GPT-4, a 3D avatar, a superseded survey figure, a fundraising amount or a sample size. Each was a real inaccuracy on an earlier version of this site. |
+| **Security policy** | Loads every page under the real production headers and asserts zero CSP violations, intact structured data and hydrating islands. |
+| **Asset budgets** | JavaScript under 30 KB gzipped, CSS under 20 KB. Currently 16.5 KB and 14 KB. |
+| **Responsive** | No page scrolls sideways at 375, 768 or 1440px. Every image declares its dimensions. |
+| **SEO** | No unresolved placeholders, every route in the sitemap, a canonical on every page, no two pages sharing a title or description. |
+
+### Security
+
+- **No third-party scripts.** No analytics, no tag managers, no tracking
+  pixels, and no cookies. Fonts are self-hosted, so no external service is
+  told that you visited.
+- **A generated Content-Security-Policy.** Astro inlines several scripts it
+  controls, so a hand-written `script-src 'self'` blocks its own hydration
+  bootstrap and silently breaks the site. `scripts/generate-csp.mjs` hashes
+  each inline script after every build and writes the policy, so the hashes
+  can never drift.
+- **The policy is tested, not just written.** `vercel.json` headers never
+  apply locally, so `tests/csp.spec.ts` serves the built output under the
+  real headers and proves the site works beneath them.
+- HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and
+  `frame-ancestors 'none'` are all set and asserted.
+
+---
 
 ## Running locally
 
 ```bash
 npm install
-cp .env.example .env   # then fill in PUBLIC_WEB3FORMS_KEY
+cp .env.example .env    # then fill in PUBLIC_WEB3FORMS_KEY
 npm run dev
 ```
 
 Requires Node 22.12 or newer.
 
-## Changing content without touching components
+| Command | Does |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run build` | Production build, then regenerates the CSP |
+| `npm run preview` | Serve the production build |
+| `npm test` | Full Playwright suite |
+| `npm run test:a11y` | Accessibility only |
+| `npm run check` | TypeScript and Astro diagnostics |
 
-Every piece of copy and every number lives in `src/content/`. Edit the value,
-run `npm run build`, done — no component work.
+### Changing copy without touching components
+
+Every headline, statistic and roadmap item lives in `src/content/`. Edit the
+value, rebuild, done.
 
 | File | Holds |
 |---|---|
 | `site.ts` | Name, tagline, contact email, links |
-| `sections.ts` | Section titles, routes, and each page's title and description |
-| `stats.ts` | Every statistic. Each one needs a `source` |
+| `sections.ts` | Section titles, routes, per-page metadata |
+| `stats.ts` | Every statistic — each one requires a `source` |
 | `features.ts` | The three feature cards |
-| `research.ts` | Paper title, authors, DOI, the SDT pillars |
+| `research.ts` | Paper details, DOI, the SDT pillars |
 | `roadmap.ts` | The three phases and their status |
 | `about.ts` | Founder story, timeline, mission |
 
-## Commands
+### Structure
 
-| Command | Does |
-|---|---|
-| `npm run dev` | Local dev server |
-| `npm run build` | Production build, then regenerates the CSP |
-| `npm run preview` | Serve the production build |
-| `npm test` | Full Playwright suite, 191 tests |
-| `npm run test:a11y` | Accessibility only |
-| `npm run check` | TypeScript and Astro diagnostics |
+```
+src/
+  content/     copy and data — no markup
+  sections/    the eight home sections, each also its own route
+  components/  layout and presentational primitives
+  islands/     the only files that ship JavaScript
+  pages/       routes
+  styles/      tokens.css is the single source of design truth
+scripts/       CSP generation, header-applying test server
+tests/         accessibility, content, CSP, responsive, SEO, anchors
+docs/          specification and implementation plan
+```
 
-## What the tests enforce
-
-These are not decoration. Several encode decisions that are easy to undo by
-accident.
-
-**`content.spec.ts` fails the build if the site ever claims** OpenAI, GPT-4, a
-3D avatar, an 88% survey figure, a fundraising amount, or a sample size. Each
-was a real inaccuracy on the previous version of this site. The reasoning is
-in `docs/specs/2026-08-07-marketing-site-design.md` §5.2. **If one of these
-fails, fix the copy — do not delete the test.**
-
-**`csp.spec.ts` loads every page under the real `vercel.json` headers.**
-`vercel.json` never applies locally, so without this the Content-Security-
-Policy would first be exercised in production. It has already caught two
-faults that would have taken the site down.
-
-**`a11y.spec.ts`** runs axe against every route and allows zero violations.
-
-**`responsive.spec.ts`** checks no page scrolls sideways at 375, 768 or
-1440px, and asserts the JavaScript and CSS budgets from `DESIGN.md` §10.
-
-**`anchors.spec.ts`** checks every in-page anchor leaves its section readable
-rather than tucked under the sticky header.
-
-## The Content-Security-Policy is generated, not written
-
-`scripts/generate-csp.mjs` runs after every build. It hashes each inline
-script Astro emits — the island hydration bootstrap, the header scroll
-listener, the JSON-LD block — and writes those hashes into `vercel.json`.
-
-Do not hand-edit the `Content-Security-Policy` value; it will be overwritten
-on the next build. To change the policy, edit the script.
-
-Do not add `'unsafe-inline'` to `script-src` to make something work. That
-disables the protection the policy exists to provide. Add a hash instead.
-
-## Before going live
-
-1. Set `PUBLIC_SITE_URL` in the Vercel project to the real domain. It feeds
-   canonical URLs, the sitemap and Open Graph tags.
-2. Update the `Sitemap:` line in `public/robots.txt` to match.
-3. **Restrict the Web3Forms key to the production domain** in the Web3Forms
-   dashboard. The key is public by design and ships in the page source; the
-   domain restriction is the only thing stopping anyone using it from
-   elsewhere. This is the last security step and it is not optional.
-
-## Design
-
-`DESIGN.md` is the design system — colour with measured contrast ratios,
-type, spacing, motion, components, accessibility and performance budgets.
-
-`src/styles/tokens.css` holds the actual values as a Tailwind 4 `@theme`
-block. If the two disagree, the CSS is correct and the document is the bug.
-
-## Documents
+### Documents
 
 | Path | What it is |
 |---|---|
-| `DESIGN.md` | The design system |
-| `docs/specs/2026-08-07-marketing-site-design.md` | What was built and why |
-| `docs/plans/2026-08-07-marketing-site-english.md` | How it was built, task by task |
+| [`DESIGN.md`](DESIGN.md) | The design system — colour with measured contrast ratios, type, spacing, motion, components |
+| [`docs/specs/`](docs/specs) | What was built and why, including every content correction |
+| [`docs/plans/`](docs/plans) | How it was built, task by task |
+
+---
+
+## Before pointing a custom domain at it
+
+1. Set `PUBLIC_SITE_URL` in Vercel to the new domain. Canonical URLs, the
+   sitemap, `robots.txt` and link previews all derive from it.
+2. Restrict the Web3Forms key to that domain in the Web3Forms dashboard. The
+   key is public by design and visible in page source; the domain restriction
+   is what makes that safe.
+
+---
+
+<div align="center">
+
+**[team.gamefit@gmail.com](mailto:team.gamefit@gmail.com)** &nbsp;·&nbsp;
+[LinkedIn](https://www.linkedin.com/in/muhammet-yalkapov) &nbsp;·&nbsp;
+[Join the waitlist](https://gamefit-web.vercel.app/beta)
+
+Built in Abu Dhabi.
+
+</div>

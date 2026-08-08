@@ -2,33 +2,48 @@
 import { site } from '../content/site';
 import { heroStats } from '../content/stats';
 import CountUp from '../islands/CountUp';
+import DeviceFrame from '../components/DeviceFrame.astro';
 ---
 <section id="hero" class="bg-gf-bg pt-20 pb-[clamp(4rem,10vw,8rem)]">
   <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)]">
-    <p class="inline-flex items-center gap-2 rounded-full border border-gf-lime/40 bg-gf-lime/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-lime">
-      AI-powered gamified fitness
-    </p>
+    <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-full border border-gf-lime/40 bg-gf-lime/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-lime">
+          AI-powered gamified fitness
+        </p>
 
-    <h1 class="mt-8 max-w-4xl text-[length:var(--text-hero)] text-gf-text">
-      Fitness<br />
-      <span class="text-gf-lime">that sticks.</span><br />
-      <span class="text-gf-amber">Finally.</span>
-    </h1>
+        <h1 class="mt-8 text-[length:var(--text-hero)] text-gf-text">
+          Fitness<br />
+          <span class="text-gf-lime">that sticks.</span><br />
+          <span class="text-gf-amber">Finally.</span>
+        </h1>
 
-    <p class="mt-8 max-w-[52ch] text-lg text-gf-muted">
-      77% of fitness app users quit within three days. GameFit fixes that — with
-      AI coaching, avatar evolution, XP progression and social competition in one
-      adaptive loop.
-    </p>
+        <p class="mt-8 max-w-[52ch] text-lg text-gf-muted">
+          77% of fitness app users quit within three days. GameFit fixes that — with
+          AI coaching, avatar evolution, XP progression and social competition in one
+          adaptive loop.
+        </p>
 
-    <div class="mt-10 flex flex-wrap gap-4">
-      <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-lime px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
-        Join the waitlist →
-      </a>
-      <a href={site.appUrl} rel="noopener noreferrer" target="_blank"
-         class="rounded-[var(--radius-md)] border border-gf-border px-7 py-3.5 font-bold text-gf-text transition-colors hover:border-gf-muted">
-        Try the live app
-      </a>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-lime px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
+            Join the waitlist →
+          </a>
+          <a href={site.appUrl} rel="noopener noreferrer" target="_blank"
+             class="rounded-[var(--radius-md)] border border-gf-border px-7 py-3.5 font-bold text-gf-text transition-colors hover:border-gf-muted">
+            Try the live app
+          </a>
+        </div>
+      </div>
+
+      <!-- eager, not lazy: this is the largest element above the fold, so
+           deferring it would delay Largest Contentful Paint rather than help. -->
+      <div class="mx-auto w-full max-w-[320px] lg:max-w-[380px]">
+        <DeviceFrame
+          name="dashboard"
+          loading="eager"
+          alt="The GameFit home screen: a Bronze rank badge, an XP bar part-way to the next level, a one-day streak, and quick actions for logging a workout or opening the coach."
+        />
+      </div>
     </div>
 
     <dl class="mt-16 grid max-w-2xl grid-cols-2 gap-8 border-t border-gf-border pt-8 sm:grid-cols-3">
