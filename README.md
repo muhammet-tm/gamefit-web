@@ -129,40 +129,6 @@ that breaks any of these fails.
 
 ---
 
-## Running locally
-
-```bash
-npm install
-cp .env.example .env    # then fill in PUBLIC_WEB3FORMS_KEY
-npm run dev
-```
-
-Requires Node 22.12 or newer.
-
-| Command | Does |
-|---|---|
-| `npm run dev` | Development server |
-| `npm run build` | Production build, then regenerates the CSP |
-| `npm run preview` | Serve the production build |
-| `npm test` | Full Playwright suite |
-| `npm run test:a11y` | Accessibility only |
-| `npm run check` | TypeScript and Astro diagnostics |
-
-### Changing copy without touching components
-
-Every headline, statistic and roadmap item lives in `src/content/`. Edit the
-value, rebuild, done.
-
-| File | Holds |
-|---|---|
-| `site.ts` | Name, tagline, contact email, links |
-| `sections.ts` | Section titles, routes, per-page metadata |
-| `stats.ts` | Every statistic — each one requires a `source` |
-| `features.ts` | The three feature cards |
-| `research.ts` | Paper details, DOI, the SDT pillars |
-| `roadmap.ts` | The three phases and their status |
-| `about.ts` | Founder story, timeline, mission |
-
 ### Structure
 
 ```
@@ -177,24 +143,6 @@ scripts/       CSP generation, header-applying test server
 tests/         accessibility, content, CSP, responsive, SEO, anchors
 docs/          specification and implementation plan
 ```
-
-### Documents
-
-| Path | What it is |
-|---|---|
-| [`DESIGN.md`](DESIGN.md) | The design system — colour with measured contrast ratios, type, spacing, motion, components |
-| [`docs/specs/`](docs/specs) | What was built and why, including every content correction |
-| [`docs/plans/`](docs/plans) | How it was built, task by task |
-
----
-
-## Before pointing a custom domain at it
-
-1. Set `PUBLIC_SITE_URL` in Vercel to the new domain. Canonical URLs, the
-   sitemap, `robots.txt` and link previews all derive from it.
-2. Restrict the Web3Forms key to that domain in the Web3Forms dashboard. The
-   key is public by design and visible in page source; the domain restriction
-   is what makes that safe.
 
 ---
 
