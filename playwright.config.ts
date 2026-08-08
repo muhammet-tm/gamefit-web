@@ -41,7 +41,12 @@ export default defineConfig({
     // shows up as a rare, unreproducible test failure.
     command: 'npm run build && npx sirv dist --port 4321 --dev',
     url: 'http://localhost:4321',
-    reuseExistingServer: !process.env.CI,
+    // Never reuse. Reusing meant that whenever a server was already listening
+    // on 4321 — including one left behind by an earlier run — Playwright
+    // skipped `npm run build` entirely and tested whatever dist/ happened to
+    // hold. That produced failures that vanished on re-run and, far worse,
+    // passes that proved nothing about the current source.
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });
