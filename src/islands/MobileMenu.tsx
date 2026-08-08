@@ -50,7 +50,7 @@ export default function MobileMenu({ items }: Props) {
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-gf-border md:hidden"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-gf-border lg:hidden"
       >
         <span aria-hidden="true" className="text-xl leading-none">☰</span>
       </button>
@@ -61,7 +61,7 @@ export default function MobileMenu({ items }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation"
-          className="fixed inset-0 z-50 flex flex-col bg-gf-bg p-6 md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-gf-bg p-6 lg:hidden"
         >
           <div className="flex justify-end">
             <button

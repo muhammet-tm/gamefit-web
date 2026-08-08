@@ -1,0 +1,26 @@
+---
+// Real captures from the running app, not mockups. Explicit width and height
+// are required, not optional: without them the image has no intrinsic size
+// until it downloads and the layout shifts under the reader.
+interface Props {
+  name: string;
+  alt: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+}
+
+const { name, alt, loading = 'lazy', class: className = '' } = Astro.props;
+---
+<div class={`overflow-hidden rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface ${className}`}>
+  <img
+    src={`/screens/${name}-420.webp`}
+    srcset={`/screens/${name}-420.webp 420w, /screens/${name}-840.webp 840w`}
+    sizes="(max-width: 768px) 88vw, 420px"
+    width="420"
+    height="910"
+    loading={loading}
+    decoding="async"
+    alt={alt}
+    class="block w-full"
+  />
+</div>

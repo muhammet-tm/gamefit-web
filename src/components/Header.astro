@@ -15,7 +15,10 @@ const items = navSections.map((s) => ({
   <div class="mx-auto flex h-16 max-w-[var(--container-site)] items-center justify-between px-[clamp(1.25rem,5vw,4rem)]">
     <a href="/" class="font-display text-2xl uppercase text-gf-lime">GameFit</a>
 
-    <nav aria-label="Primary" class="hidden md:block">
+    <!-- lg, not md: at exactly 768px the wordmark, seven links and the CTA
+         need 783px and push the page into horizontal scroll. Tablet portrait
+         gets the overlay menu, which suits it anyway. -->
+    <nav aria-label="Primary" class="hidden lg:block">
       <ul class="flex items-center gap-8">
         {items.map((item) => (
           <li>
@@ -30,7 +33,7 @@ const items = navSections.map((s) => ({
     <div class="flex items-center gap-3">
       <a
         href="/beta"
-        class="hidden rounded-md bg-gf-lime px-5 py-2.5 text-sm font-bold text-gf-bg transition-opacity hover:opacity-90 md:inline-block"
+        class="hidden rounded-md bg-gf-lime px-5 py-2.5 text-sm font-bold text-gf-bg transition-opacity hover:opacity-90 lg:inline-block"
       >
         Join waitlist
       </a>

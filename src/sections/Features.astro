@@ -2,7 +2,24 @@
 import SectionShell from '../components/SectionShell.astro';
 import Card from '../components/Card.astro';
 import RankEmblem from '../components/RankEmblem.astro';
+import DeviceFrame from '../components/DeviceFrame.astro';
 import { features } from '../content/features';
+
+/** Real captures from the running app. Alt text says what the screen shows. */
+const screens = [
+  {
+    name: 'dashboard',
+    alt: 'The GameFit home screen: a Bronze rank badge, an XP bar part-way to the next level, a streak counter, and quick actions for logging a workout or opening the coach.',
+  },
+  {
+    name: 'coach',
+    alt: 'The AI coach screen, showing a personalised training plan generated for the logged-in user.',
+  },
+  {
+    name: 'avatar',
+    alt: 'The avatar screen, showing the character and the gear unlocked at the current tier.',
+  },
+];
 
 interface Props { as?: 'h1' | 'h2'; }
 const { as = 'h2' } = Astro.props;
@@ -36,6 +53,13 @@ const ladder: { tier: 1 | 2 | 3 | 4 | 5; name: string; color: string; levels: st
         </ul>
       </Card>
     ))}
+  </div>
+
+  <div class="mt-16">
+    <p class="text-xs font-bold uppercase tracking-[0.12em] text-gf-muted">The actual product</p>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {screens.map((s) => <DeviceFrame name={s.name} alt={s.alt} />)}
+    </div>
   </div>
 
   <div class="mt-5 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-5 py-7 sm:p-8">
