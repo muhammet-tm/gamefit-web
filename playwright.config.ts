@@ -11,8 +11,25 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
-    { name: 'mobile', use: { ...devices['iPhone 13'] } },
+    // csp.spec.ts starts its own header-applying server on a fixed port, so it
+    // runs once in a dedicated single-worker project rather than twice in
+    // parallel across the two browser projects.
+    {
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: '**/csp.spec.ts',
+    },
+    {
+      name: 'mobile',
+      use: { ...devices['iPhone 13'] },
+      testIgnore: '**/csp.spec.ts',
+    },
+    {
+      name: 'security',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/csp.spec.ts',
+      fullyParallel: false,
+    },
   ],
   webServer: {
     // Not `astro preview`: as of Astro 7 it daemonises when stdout is not a

@@ -14,6 +14,14 @@ export default defineConfig({
   integrations: [preact({ compat: true }), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Never inline fonts as data: URIs. Vite does this for small assets by
+      // default, which forces `font-src` to allow `data:` and defeats the
+      // point of the directive. Emitted as real files they are also cacheable
+      // under the immutable header on /_astro/, where an inlined font is
+      // re-downloaded with every CSS change.
+      assetsInlineLimit: (filePath) => (/\.(woff2?|ttf|otf|eot)$/i.test(filePath) ? false : undefined),
+    },
   },
   build: {
     inlineStylesheets: 'auto',
