@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WaitlistForm from '../islands/WaitlistForm';
+---
+<BaseLayout
+  title="Join the GameFit Waitlist"
+  description="Be first in when the GameFit beta opens. AI coaching, avatar evolution and social competition that actually keeps you training."
+  path="/beta"
+>
+  <section class="mx-auto max-w-[var(--container-narrow)] px-[clamp(1.25rem,5vw,4rem)] py-24">
+    <p class="text-xs font-bold uppercase tracking-[0.12em] text-gf-lime">Beta access</p>
+    <h1 class="mt-4 text-[length:var(--text-h1)] text-gf-text">Get in early.</h1>
+    <p class="mt-6 text-lg text-gf-muted">
+      We&rsquo;re opening GameFit to a first group of testers. Join the list and
+      we&rsquo;ll email you the moment there&rsquo;s a spot.
+    </p>
+    <div class="mt-12">
+      <WaitlistForm client:load />
+    </div>
+  </section>
+</BaseLayout>

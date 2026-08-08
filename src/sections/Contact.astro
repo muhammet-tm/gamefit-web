@@ -1,0 +1,33 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import { site } from '../content/site';
+import { paper } from '../content/research';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+const channels = [
+  { label: site.email, body: 'For investment, partnerships or general enquiries', href: `mailto:${site.email}`, external: false },
+  { label: 'LinkedIn', body: 'Connect with the founder', href: site.linkedin, external: true },
+  { label: 'Read the research', body: 'The peer-reviewed paper behind GameFit', href: paper.doiUrl, external: true },
+  { label: 'Try the live app', body: 'See the product working', href: site.appUrl, external: true },
+];
+---
+<SectionShell id="contact" band="surface" index="07" eyebrow="Get in touch" title="Let's build together." as={as}>
+  <div class="mt-12 grid gap-5 md:grid-cols-2">
+    {channels.map((c) => (
+      <Card>
+        <a
+          href={c.href}
+          rel={c.external ? 'noopener noreferrer' : undefined}
+          target={c.external ? '_blank' : undefined}
+          class="font-bold text-gf-lime underline underline-offset-4"
+        >
+          {c.label}
+        </a>
+        <p class="mt-2 text-sm text-gf-muted">{c.body}</p>
+      </Card>
+    ))}
+  </div>
+</SectionShell>

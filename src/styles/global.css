@@ -1,0 +1,48 @@
+@import "@fontsource/barlow-condensed/900.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/700.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+html {
+  background-color: var(--color-gf-bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+/* The header is sticky at 4rem. Without this, an anchor jump puts the
+   section's top edge — and on narrow viewports very nearly its first line of
+   text — underneath it. Covered by tests/anchors.spec.ts. */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+body {
+  background-color: var(--color-gf-bg);
+  color: var(--color-gf-text);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gf-lime);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

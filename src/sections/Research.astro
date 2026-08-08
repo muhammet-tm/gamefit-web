@@ -1,0 +1,63 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import { paper, sdtPillars } from '../content/research';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+const meta = [
+  { term: 'Authors', detail: paper.authors.join(' · ') },
+  { term: 'Published in', detail: paper.venue },
+  { term: 'Presented at', detail: `${paper.conference} — ${paper.presentation}` },
+];
+---
+<SectionShell id="research" index="04" eyebrow="Academic validation" title="Built on science, not hype." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    GameFit was peer-reviewed and published before it launched. That is the
+    standard we hold ourselves to.
+  </p>
+
+  <Card class="mt-12">
+    <div class="grid gap-8 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
+      <div>
+        <p class="inline-flex rounded-[var(--radius-md)] border border-gf-violet/50 bg-gf-violet/15 px-3 py-1 text-xs font-bold text-gf-violet-text">
+          Springer · {paper.indexed}
+        </p>
+        <h3 class="mt-5 max-w-[24ch] text-[length:var(--text-h2)] text-gf-text">{paper.title}</h3>
+        <p class="mt-5 max-w-[62ch] text-gf-muted">{paper.abstract}</p>
+        <a
+          href={paper.doiUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="mt-6 inline-block font-mono text-sm text-gf-lime underline underline-offset-4"
+        >
+          Read the full paper — doi.org/{paper.doi}
+        </a>
+      </div>
+
+      <dl class="grid content-start gap-5 border-t border-gf-border pt-7 lg:border-t-0 lg:border-s lg:border-gf-border lg:ps-12 lg:pt-0">
+        {meta.map((m) => (
+          <div>
+            <dt class="text-xs font-bold uppercase tracking-[0.12em] text-gf-muted">{m.term}</dt>
+            <dd class="mt-1.5 text-sm text-gf-text">{m.detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </Card>
+
+  <h3 class="mt-16 text-[length:var(--text-h3)] text-gf-text">Grounded in Self-Determination Theory</h3>
+  <p class="mt-3 max-w-[62ch] text-gf-muted">
+    Three needs drive intrinsic motivation. Each maps onto a system in the product.
+  </p>
+  <ol class="mt-8 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-gf-border bg-gf-border md:grid-cols-3">
+    {sdtPillars.map((p, i) => (
+      <li class="bg-gf-surface p-7">
+        <p class="font-mono text-xs text-gf-muted">{String(i + 1).padStart(2, '0')}</p>
+        <h4 class="mt-3 font-display text-xl uppercase text-gf-lime">{p.name}</h4>
+        <p class="mt-3 text-gf-muted">{p.body}</p>
+      </li>
+    ))}
+  </ol>
+</SectionShell>

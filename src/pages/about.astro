@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import About from '../sections/About.astro';
+import { sections } from '../content/sections';
+const meta = sections.find((s) => s.id === 'about')!;
+---
+<BaseLayout title={meta.metaTitle} description={meta.metaDescription} path="/about">
+  <About as="h1" />
+  <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)] pb-24">
+    <a href="/" class="text-sm text-gf-lime underline underline-offset-4">← Back to the full picture</a>
+  </div>
+</BaseLayout>

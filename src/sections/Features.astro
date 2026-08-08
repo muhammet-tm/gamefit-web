@@ -1,0 +1,106 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import RankEmblem from '../components/RankEmblem.astro';
+import DeviceFrame from '../components/DeviceFrame.astro';
+import { features } from '../content/features';
+
+/** Real captures from the running app. Alt text says what the screen shows. */
+const screens = [
+  {
+    name: 'dashboard',
+    alt: 'The GameFit home screen: a Bronze rank badge, an XP bar part-way to the next level, a streak counter, and quick actions for logging a workout or opening the coach.',
+  },
+  {
+    name: 'coach',
+    alt: 'The AI coach screen, showing a personalised training plan generated for the logged-in user.',
+  },
+  {
+    name: 'avatar',
+    alt: 'The avatar screen, showing the character and the gear unlocked at the current tier.',
+  },
+];
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+const accentText = { lime: 'text-gf-lime', violet: 'text-gf-violet-text', amber: 'text-gf-amber' };
+
+/** The shipped ladder: ten levels across five tiers, sub-ranks in between. */
+const ladder: { tier: 1 | 2 | 3 | 4 | 5; name: string; color: string; levels: string; sr: string }[] = [
+  { tier: 1, name: 'Bronze', color: 'var(--color-tier-bronze)', levels: 'L1–2', sr: 'levels 1 to 2' },
+  { tier: 2, name: 'Silver', color: 'var(--color-tier-silver)', levels: 'L3–4', sr: 'levels 3 to 4' },
+  { tier: 3, name: 'Gold', color: 'var(--color-tier-gold)', levels: 'L5–6', sr: 'levels 5 to 6' },
+  { tier: 4, name: 'Platinum', color: 'var(--color-tier-platinum)', levels: 'L7–9', sr: 'levels 7 to 9' },
+  { tier: 5, name: 'Apex', color: 'var(--color-tier-apex)', levels: 'L10', sr: 'level 10' },
+];
+---
+<SectionShell id="features" index="02" eyebrow="Core features" title="Not an app. An arena." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    Three systems — AI coaching, deep gamification and social competition — fused
+    into one adaptive feedback loop grounded in Self-Determination Theory.
+  </p>
+
+  <div class="mt-12 grid gap-5 md:grid-cols-3">
+    {features.map((f) => (
+      <Card>
+        <h3 class={`text-[length:var(--text-h3)] ${accentText[f.accent]}`}>{f.title}</h3>
+        <p class="mt-4 text-gf-muted">{f.body}</p>
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {f.tags.map((t) => (
+            <li class="rounded-[var(--radius-md)] border border-gf-border px-3 py-1 text-xs text-gf-muted">{t}</li>
+          ))}
+        </ul>
+      </Card>
+    ))}
+  </div>
+
+  <div class="mt-16">
+    <p class="text-xs font-bold uppercase tracking-[0.12em] text-gf-muted">The actual product</p>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {screens.map((s) => <DeviceFrame name={s.name} alt={s.alt} />)}
+    </div>
+  </div>
+
+  <div class="mt-5 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-5 py-7 sm:p-8">
+    <p class="max-w-[62ch] text-gf-muted">
+      <span class="text-gf-text">Ten levels, five ranks, sub-ranks in between.</span> Everyone starts at Bronze II and climbs to Apex.
+    </p>
+
+    <div class="ladder mx-auto mt-8 max-w-2xl">
+      <ol class="grid grid-cols-5">
+        {ladder.map((r) => (
+          <li class="flex flex-col items-center text-center">
+            <RankEmblem tier={r.tier} size={40} />
+            <span
+              aria-hidden="true"
+              class="mt-1.5 font-display text-xs uppercase leading-none tracking-[0.06em]"
+              style={`color:${r.color}`}
+            >{r.name}</span>
+            <span aria-hidden="true" class="mt-1 font-mono text-[0.6875rem] text-gf-muted">{r.levels}</span>
+            <span class="sr-only">{r.sr}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</SectionShell>
+
+<style>
+  /* Hairline connecting each shield to the one before it. Drawn per item so it
+     never crosses an emblem, with logical insets so it mirrors under RTL.
+     22px = half the 40px emblem plus 2px of breathing room; 22px top = the
+     emblem's vertical centre (40 x 1.12 rounds to a 45px tall SVG). */
+  .ladder li {
+    position: relative;
+  }
+  .ladder li + li::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    inset-inline-start: calc(-50% + 24px);
+    inset-inline-end: calc(50% + 24px);
+    height: 1px;
+    background: var(--color-gf-border);
+  }
+</style>

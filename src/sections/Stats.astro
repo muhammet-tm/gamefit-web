@@ -1,0 +1,22 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import StatTile from '../components/StatTile.astro';
+import { marketStats, surveyStats } from '../content/stats';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+---
+<SectionShell id="stats" band="surface" index="01" eyebrow="The numbers" title="The case for GameFit" as={as}>
+  <p class="mt-6 max-w-[60ch] text-lg text-gf-muted">
+    The problem we solve, and the demand we have validated.
+  </p>
+
+  <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    {marketStats.map((stat) => <StatTile stat={stat} />)}
+  </div>
+
+  <h3 class="mt-16 text-[length:var(--text-h3)] text-gf-text">What our research found</h3>
+  <div class="mt-6 grid gap-5 sm:grid-cols-3">
+    {surveyStats.map((stat) => <StatTile stat={stat} />)}
+  </div>
+</SectionShell>

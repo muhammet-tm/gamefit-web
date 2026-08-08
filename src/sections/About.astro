@@ -1,0 +1,56 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import { story, timeline, mission } from '../content/about';
+import { site } from '../content/site';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+---
+<SectionShell id="about" index="06" eyebrow="Our story" title="Built in Abu Dhabi. Scaling to the world." as={as}>
+  <div class="mt-10 grid gap-12 lg:grid-cols-2">
+    <div class="space-y-5">
+      {story.map((p) => <p class="text-gf-muted">{p}</p>)}
+    </div>
+
+    <ol class="space-y-6">
+      {timeline.map((m) => (
+        <li class="border-l-2 border-gf-lime pl-5">
+          <p class="font-display text-xl text-gf-lime">{m.year}</p>
+          <p class="mt-1 text-sm text-gf-muted">{m.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <div class="mt-16 grid gap-5 lg:grid-cols-2">
+    <Card>
+      <h3 class="text-[length:var(--text-h3)] text-gf-text">{site.founder}</h3>
+      <p class="mt-1 text-sm font-bold text-gf-lime">Founder, GameFit</p>
+      <ul class="mt-5 space-y-2 text-sm text-gf-muted">
+        <li>{site.location}</li>
+        <li>BSc IT (Cybersecurity), Abu Dhabi University</li>
+        <li>Lead author, Springer / Scopus ACR&rsquo;26</li>
+        <li>WebSummit Qatar 2026 — ALPHA stage</li>
+      </ul>
+    </Card>
+
+    <Card>
+      <h3 class="text-[length:var(--text-h3)] text-gf-text">Academic validation</h3>
+      <p class="mt-4 text-gf-muted">
+        The research behind GameFit was supervised and validated by
+        <strong class="text-gf-text">Dr. Murad Al-Rajab</strong> of Abu Dhabi
+        University, who supported the work through to peer-reviewed publication.
+      </p>
+      <p class="mt-4 text-sm text-gf-muted">
+        Additional co-authors are credited in the paper itself, listed in the
+        research section.
+      </p>
+    </Card>
+  </div>
+
+  <blockquote class="mt-16 border-l-2 border-gf-lime pl-6">
+    <p class="font-display text-[length:var(--text-h2)] uppercase text-gf-lime">{mission}</p>
+    <footer class="mt-2 text-sm text-gf-muted">Our mission</footer>
+  </blockquote>
+</SectionShell>

@@ -69,7 +69,7 @@ content reference but not the design reference.
 | Layer | Choice | Rationale |
 |---|---|---|
 | Framework | Astro 7.2 | Ships zero JS by default. A marketing site is ~95% static; paying a React runtime cost on every load buys nothing. Requires Node ≥ 22.12. |
-| Interactive islands | React 19.2 via `@astrojs/react` 6 | Four islands only. Matches the syntax already used in the app so the codebase stays legible to the owner. |
+| Interactive islands | Preact 10.29 via `@astrojs/preact` 6, `compat` on | Four islands only. Measured 2026-08-08: React shipped 56 KB gzipped to run 1.6 KB of island logic, blowing the 30 KB budget nearly twice over on framework alone. Preact costs 13.6 KB total. `compat` aliases `react` → `preact/compat`, so island source keeps React's syntax and stays legible to the owner. |
 | Styling | Tailwind 4.3 via `@tailwindcss/vite` + CSS custom properties | Tailwind 4 is CSS-first: tokens are declared in `tokens.css` with `@theme` and there is no `tailwind.config.js`. This makes `tokens.css` genuinely the single source of truth rather than nominally so. |
 | Forms | Web3Forms | No account creation, no form-builder UI, no backend. Chosen specifically because setup is one access key rather than a configuration exercise. |
 | Hosting | Vercel | Already in use, free tier sufficient, static output. |

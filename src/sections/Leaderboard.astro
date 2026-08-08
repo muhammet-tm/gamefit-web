@@ -1,0 +1,146 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import RankEmblem from '../components/RankEmblem.astro';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+type Tier = 1 | 2 | 3 | 4 | 5;
+
+interface Entry {
+  rank: number;
+  handle: string;
+  level: number;
+  tier: Tier;
+  sub: string;
+  xp: string;
+}
+
+/**
+ * Illustrative standings. These are invented handles shown to demonstrate the
+ * in-app leaderboard's shape — the figcaption says so on the page. Levels,
+ * tiers and sub-ranks follow the real ladder in the app: ten levels across
+ * five tiers, Apex has no sub-rank.
+ */
+const podium: (Entry & { order: string; plinth: string })[] = [
+  { rank: 1, handle: '@ironwolf', level: 10, tier: 5, sub: '', xp: '14,320', order: 'order-2', plinth: 'h-20' },
+  { rank: 2, handle: '@sara.lifts', level: 9, tier: 4, sub: 'I', xp: '12,480', order: 'order-1', plinth: 'h-14' },
+  { rank: 3, handle: '@k_atlas', level: 8, tier: 4, sub: 'II', xp: '11,050', order: 'order-3', plinth: 'h-10' },
+];
+
+const chasing: Entry[] = [
+  { rank: 4, handle: '@nightshift', level: 7, tier: 4, sub: 'III', xp: '9,640' },
+  { rank: 5, handle: '@dune_runner', level: 6, tier: 3, sub: 'I', xp: '8,215' },
+  { rank: 6, handle: '@vex.rn', level: 5, tier: 3, sub: 'II', xp: '7,480' },
+];
+
+const statBlock = [
+  { key: 'STR', name: 'Strength', value: 82, bar: 'bg-tier-gold' },
+  { key: 'END', name: 'Endurance', value: 68, bar: 'bg-tier-platinum' },
+  { key: 'AGI', name: 'Agility', value: 54, bar: 'bg-tier-apex' },
+  { key: 'REC', name: 'Recovery', value: 76, bar: 'bg-tier-bronze' },
+];
+
+const mechanics = [
+  { title: 'STR · END · AGI · REC', body: 'Four stats tracked from every workout logged' },
+  { title: 'Earn coins, spend in the marketplace', body: 'Real fitness gear and nutrition rewards' },
+  { title: 'Global and friends leaderboards', body: 'Compete publicly or with your crew' },
+  { title: 'Weekly reset', body: 'Fresh competition every Monday at midnight UTC' },
+];
+---
+<SectionShell id="leaderboard" band="surface" index="03" eyebrow="Competition" title="Climb. Compete. Win." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    Weekly leaderboards reset every Monday at midnight UTC. Global rankings plus a
+    friends-only mode. Your avatar's rank reflects every rep you put in.
+  </p>
+
+  <div class="mt-12 grid gap-5 lg:grid-cols-[1.7fr_1fr] lg:items-start">
+    <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg">
+      <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-gf-border bg-gf-elevated px-4 py-3 sm:px-5">
+        <p class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gf-muted">
+          Weekly &middot; resets Monday 00:00 UTC
+        </p>
+        <p class="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-gf-muted">Global</p>
+      </div>
+
+      <div class="p-4 sm:p-6">
+        <ol class="grid grid-cols-3 items-end gap-2 sm:gap-4">
+          {podium.map((p) => (
+            <li class={p.order}>
+              <div class="rounded-t-[var(--radius-lg)] border border-b-0 border-gf-border bg-gf-surface px-1.5 py-4 text-center sm:px-3">
+                <RankEmblem tier={p.tier} sub={p.sub} size={38} />
+                <p class="mt-2 truncate text-[0.8125rem] font-bold text-gf-text sm:text-sm">{p.handle}</p>
+                <p class="font-mono text-[0.6875rem] text-gf-muted">LV {p.level}</p>
+                <p class="mt-2 font-mono text-sm tabular-nums text-gf-text">
+                  {p.xp}<span class="text-gf-muted"> XP</span>
+                </p>
+              </div>
+              <div class={`flex items-center justify-center rounded-b-[var(--radius-md)] border border-gf-border bg-gf-elevated ${p.plinth}`}>
+                <span class="font-display text-3xl text-gf-text">
+                  <span class="sr-only">Rank </span>{p.rank}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <ol start="4" class="mt-6 overflow-hidden rounded-[var(--radius-md)] border border-gf-border">
+          {chasing.map((r, i) => (
+            <li class={`flex items-center gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 ${i % 2 === 0 ? 'bg-gf-surface' : 'bg-gf-bg'}`}>
+              <span class="w-5 shrink-0 font-mono text-sm tabular-nums text-gf-muted">
+                <span class="sr-only">Rank </span>{r.rank}
+              </span>
+              <RankEmblem tier={r.tier} sub={r.sub} size={20} class="shrink-0" />
+              <span class="min-w-0 flex-1 truncate text-sm font-bold text-gf-text">{r.handle}</span>
+              <span class="shrink-0 font-mono text-[0.6875rem] text-gf-muted">LV {r.level}</span>
+              <span class="shrink-0 font-mono text-[0.6875rem] tabular-nums text-gf-text sm:text-sm">
+                {r.xp}<span class="text-gf-muted"> XP</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <figcaption class="border-t border-gf-border px-4 py-3 text-xs text-gf-muted sm:px-5">
+        An illustration of the in-app leaderboard. The handles and totals shown
+        are examples, not real users.
+      </figcaption>
+    </figure>
+
+    <div class="rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-6">
+      <h3 class="text-[length:var(--text-h3)] text-gf-text">Your stat block</h3>
+      <p class="mt-2 text-sm text-gf-muted">
+        Four attributes, built from what you actually log.
+      </p>
+
+      <ul class="mt-6 space-y-4">
+        {statBlock.map((s) => (
+          <li>
+            <div class="flex items-baseline justify-between gap-3">
+              <p class="font-display text-base uppercase tracking-[0.1em] text-gf-text">
+                {s.key} <span class="ms-1 font-body text-xs font-normal normal-case tracking-normal text-gf-muted">{s.name}</span>
+              </p>
+              <p class="font-mono text-sm tabular-nums text-gf-text">{s.value}</p>
+            </div>
+            <div aria-hidden="true" class="mt-2 h-1.5 overflow-hidden rounded-full bg-gf-elevated">
+              <div class={`h-full rounded-full ${s.bar}`} style={`width:${s.value}%`}></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="mt-6 border-t border-gf-border pt-4 text-xs text-gf-muted">
+        Illustrative values.
+      </p>
+    </div>
+  </div>
+
+  <ul class="mt-5 grid gap-px overflow-hidden rounded-[var(--radius-lg)] border border-gf-border bg-gf-border sm:grid-cols-2 lg:grid-cols-4">
+    {mechanics.map((m) => (
+      <li class="bg-gf-bg p-5">
+        <p class="font-display text-base uppercase tracking-[0.06em] text-gf-text">{m.title}</p>
+        <p class="mt-1.5 text-sm text-gf-muted">{m.body}</p>
+      </li>
+    ))}
+  </ul>
+</SectionShell>

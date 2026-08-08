@@ -1,0 +1,28 @@
+---
+interface Props {
+  id: string;
+  eyebrow?: string;
+  /** Two-digit section index, e.g. "01". Prefixed to the eyebrow label. */
+  index?: string;
+  title?: string;
+  band?: 'bg' | 'surface';
+  narrow?: boolean;
+  as?: 'h1' | 'h2';
+}
+
+const { id, eyebrow, index, title, band = 'bg', narrow = false, as = 'h2' } = Astro.props;
+const bandClass = band === 'surface' ? 'bg-gf-surface' : 'bg-gf-bg';
+const width = narrow ? 'max-w-[var(--container-narrow)]' : 'max-w-[var(--container-site)]';
+const Title = as;
+---
+<section id={id} class={`${bandClass} py-[clamp(5rem,12vw,10rem)]`}>
+  <div class={`mx-auto ${width} px-[clamp(1.25rem,5vw,4rem)]`}>
+    {eyebrow && (
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-gf-lime">{index && <span class="font-mono font-normal text-gf-muted">{index} &mdash; </span>}{eyebrow}</p>
+    )}
+    {title && (
+      <Title class="mt-4 text-[length:var(--text-h1)] text-gf-text">{title}</Title>
+    )}
+    <slot />
+  </div>
+</section>

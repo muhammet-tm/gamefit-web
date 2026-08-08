@@ -1,0 +1,39 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import Card from '../components/Card.astro';
+import { phases } from '../content/roadmap';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+const statusStyle = {
+  'Done': 'border-gf-success/50 bg-gf-success/15 text-gf-success',
+  'MVP ready': 'border-gf-lime/50 bg-gf-lime/15 text-gf-lime',
+  'Next': 'border-gf-border bg-gf-elevated text-gf-muted',
+};
+---
+<SectionShell id="roadmap" band="surface" index="05" eyebrow="Roadmap" title="From prototype to platform." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    Everything achieved so far was bootstrapped with zero institutional funding.
+    Here is where we are going.
+  </p>
+
+  <div class="mt-12 grid gap-5 md:grid-cols-3">
+    {phases.map((p) => (
+      <Card>
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-xs uppercase tracking-widest text-gf-muted">{p.label}</p>
+          <span class={`rounded-full border px-3 py-1 text-xs font-bold ${statusStyle[p.status]}`}>
+            {p.status}
+          </span>
+        </div>
+        <h3 class="mt-4 text-[length:var(--text-h3)] text-gf-text">{p.title}</h3>
+        <ul class="mt-5 space-y-3">
+          {p.items.map((item) => (
+            <li class="border-b border-gf-border pb-3 text-sm text-gf-muted last:border-0">{item}</li>
+          ))}
+        </ul>
+      </Card>
+    ))}
+  </div>
+</SectionShell>

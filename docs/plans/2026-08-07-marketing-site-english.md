@@ -298,64 +298,32 @@ git commit -m "feat: add design tokens as Tailwind 4 theme"
 `DESIGN.md` §3.1 requires fonts be self-hosted rather than loaded from Google's CDN — one fewer third-party request, and it removes the GDPR exposure.
 
 **Files:**
-- Create: `public/fonts/*.woff2`, `src/styles/global.css`
+- Create: `src/styles/global.css`
+- Modify: `package.json` (three `@fontsource` dependencies)
 
-- [ ] **Step 1: Download the five font files**
-
-Barlow Condensed 900, DM Sans 400/500/700, JetBrains Mono 500. Latin subset, woff2.
+- [ ] **Step 1: Install the fonts as packages**
 
 ```bash
-mkdir -p public/fonts
-npx google-font-installer download "Barlow Condensed" -w 900 -d public/fonts
-npx google-font-installer download "DM Sans" -w 400,500,700 -d public/fonts
-npx google-font-installer download "JetBrains Mono" -w 500 -d public/fonts
+npm i @fontsource/barlow-condensed @fontsource/dm-sans @fontsource/jetbrains-mono
 ```
 
-If `google-font-installer` is unavailable, download the woff2 files manually from `gwfh.mranftl.com` (Google Webfonts Helper), latin subset, and place them in `public/fonts/`. Expected filenames referenced below: `barlow-condensed-900.woff2`, `dm-sans-400.woff2`, `dm-sans-500.woff2`, `dm-sans-700.woff2`, `jetbrains-mono-500.woff2`.
+`@fontsource` ships self-hosted woff2 files as npm packages, which Vite fingerprints and emits into `dist/`. This satisfies the same requirement as hand-placing files in `public/fonts/` — no request ever reaches Google — while being reproducible from `package.json` rather than depending on a download tool.
 
-- [ ] **Step 2: Verify the files exist and are woff2**
+Do **not** fall back to the Google Fonts CDN if this fails. That would breach `DESIGN.md` §3.1.
 
-Run: `ls -la public/fonts/`
-Expected: five `.woff2` files, each roughly 15–40 KB. If any file is over 200 KB it is not subset — replace it.
+- [ ] **Step 2: Verify the font files are emitted locally**
+
+Run: `npm run build && ls dist/_astro/*.woff2 | head`
+Expected: woff2 files present in the build output.
 
 - [ ] **Step 3: Write global.css**
 
 ```css
-@font-face {
-  font-family: "Barlow Condensed";
-  src: url("/fonts/barlow-condensed-900.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-700.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+@import "@fontsource/barlow-condensed/900.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/700.css";
+@import "@fontsource/jetbrains-mono/500.css";
 
 html {
   background-color: var(--color-gf-bg);
@@ -435,7 +403,10 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['iPhone 13'] } },
   ],
   webServer: {
-    command: 'npm run build && npm run preview',
+    // Not `astro preview`: as of Astro 7 it daemonises when stdout is not a
+    // TTY, exiting 0 immediately, which Playwright reads as "server died".
+    // sirv serves the same dist/ output and stays in the foreground.
+    command: 'npm run build && npx sirv dist --port 4321',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
@@ -443,7 +414,17 @@ export default defineConfig({
 });
 ```
 
-Testing the built preview rather than the dev server matters: the dev server does not apply the same CSS bundling or asset hashing, so a passing dev test can hide a broken production build.
+Requires `npm i -D sirv-cli`, added in Step 1a below.
+
+Testing the built output rather than the dev server matters: the dev server does not apply the same CSS bundling or asset hashing, so a passing dev test can hide a broken production build.
+
+- [ ] **Step 1a: Install the static server**
+
+```bash
+npm i -D sirv-cli
+```
+
+`astro preview` cannot be used here. Verified on 2026-08-07 against Astro 7.2: it prints `Preview server running at http://localhost:4321 (pid NNNN)` and exits with code 0, leaving a detached daemon. Playwright treats the exit as a crashed server and aborts the run. There is a `--background` flag but no way to force foreground, so a plain static server is the correct tool.
 
 - [ ] **Step 2: Install the browser binary**
 
