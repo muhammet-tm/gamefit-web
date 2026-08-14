@@ -11,18 +11,18 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         <!-- The pill eyebrow ("AI-powered gamified fitness") is gone. It named
              a category rather than a claim, and a tracked uppercase kicker
              above the headline is the most templated opening on the web. -->
-        <h1 class="max-w-[13ch] text-[length:var(--text-hero)] text-gf-text">
-          Most apps lose you <span class="text-gf-gold">by day three.</span>
+        <h1 class="gf-hero-step max-w-[13ch] text-[length:var(--text-hero)] text-gf-text" style="--gf-i:0">
+          Most apps lose you <span class="gf-hero-fill text-gf-gold">by day three.</span>
         </h1>
 
-        <p class="mt-7 max-w-[46ch] text-lg text-gf-muted">
+        <p class="gf-hero-step mt-7 max-w-[46ch] text-lg text-gf-muted" style="--gf-i:1">
           77% of people abandon a fitness app inside three days. GameFit turns a
           logged workout into XP, coins and a streak, then into a rank you can
           lose. <strong class="font-semibold text-gf-text">The progress is the
           product.</strong>
         </p>
 
-        <div class="mt-10 flex flex-wrap gap-4">
+        <div class="gf-hero-step mt-10 flex flex-wrap gap-4" style="--gf-i:2">
           <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-gold px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
             Join the waitlist →
           </a>
@@ -35,7 +35,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
 
       <!-- eager, not lazy: this is the largest element above the fold, so
            deferring it would delay Largest Contentful Paint rather than help. -->
-      <div class="mx-auto w-full max-w-[320px] lg:max-w-[380px]">
+      <div class="gf-hero-step mx-auto w-full max-w-[320px] lg:max-w-[380px]" style="--gf-i:2">
         <DeviceFrame
           name="dashboard"
           loading="eager"
@@ -44,7 +44,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
       </div>
     </div>
 
-    <dl class="mt-16 grid max-w-2xl grid-cols-2 gap-8 border-t border-gf-border pt-8 sm:grid-cols-3">
+    <dl class="gf-hero-step mt-16 grid max-w-2xl grid-cols-2 gap-8 border-t border-gf-border pt-8 sm:grid-cols-3" style="--gf-i:3">
       {heroStats.map((s) => (
         <div>
           <dt class="sr-only">{s.label}</dt>
