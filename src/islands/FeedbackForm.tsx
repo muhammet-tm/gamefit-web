@@ -42,8 +42,8 @@ export default function FeedbackForm() {
 
   if (state === 'success') {
     return (
-      <div role="status" className="rounded-[var(--radius-lg)] border border-gf-lime/40 bg-gf-lime/10 p-8">
-        <h2 className="font-display text-2xl uppercase text-gf-lime">Thank you</h2>
+      <div role="status" className="rounded-[var(--radius-lg)] border border-gf-gold/40 bg-gf-gold/10 p-8">
+        <h2 className="font-display text-2xl uppercase text-gf-gold">Thank you</h2>
         <p className="mt-3 text-gf-muted">
           Genuinely useful. Every piece of this gets read.
         </p>
@@ -59,7 +59,7 @@ export default function FeedbackForm() {
         <legend className="text-sm font-bold text-gf-text">Overall, how does GameFit feel?</legend>
         <div className="mt-3 flex gap-2">
           {RATINGS.map((n) => (
-            <label key={n} className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-[var(--radius-sm)] border border-gf-border bg-gf-elevated text-gf-text has-[:checked]:border-gf-lime has-[:checked]:text-gf-lime">
+            <label key={n} className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-[var(--radius-sm)] border border-gf-border bg-gf-elevated text-gf-text has-[:checked]:border-gf-gold has-[:checked]:text-gf-gold">
               <input type="radio" name="rating" value={n} className="sr-only" />
               {n}
             </label>
@@ -90,14 +90,14 @@ export default function FeedbackForm() {
       {error && <p aria-live="polite" className="text-sm text-gf-error">{error}</p>}
 
       <button type="submit" disabled={state === 'submitting'}
-        className="h-12 w-full rounded-[var(--radius-md)] bg-gf-lime px-6 font-bold text-gf-bg disabled:opacity-60 sm:w-auto">
+        className="h-12 w-full rounded-[var(--radius-md)] bg-gf-gold px-6 font-bold text-gf-bg disabled:opacity-60 sm:w-auto">
         {state === 'submitting' ? 'Sending…' : 'Send feedback'}
       </button>
 
       {state === 'error' && (
         <div role="alert" className="rounded-[var(--radius-sm)] border border-gf-error/50 bg-gf-error/10 p-4 text-sm text-gf-text">
           That didn&rsquo;t send. Email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-gf-lime underline underline-offset-4">{CONTACT_EMAIL}</a>{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-gf-gold underline underline-offset-4">{CONTACT_EMAIL}</a>{' '}
           instead.
         </div>
       )}

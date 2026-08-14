@@ -8,14 +8,14 @@ import DeviceFrame from '../components/DeviceFrame.astro';
   <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)]">
     <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
       <div>
-        <p class="inline-flex items-center gap-2 rounded-full border border-gf-lime/40 bg-gf-lime/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-lime">
+        <p class="inline-flex items-center gap-2 rounded-full border border-gf-gold/40 bg-gf-gold/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-gold">
           AI-powered gamified fitness
         </p>
 
         <h1 class="mt-8 text-[length:var(--text-hero)] text-gf-text">
           Fitness<br />
-          <span class="text-gf-lime">that sticks.</span><br />
-          <span class="text-gf-amber">Finally.</span>
+          <span class="text-gf-gold">that sticks.</span><br />
+          <span class="text-gf-ember">Finally.</span>
         </h1>
 
         <p class="mt-8 max-w-[52ch] text-lg text-gf-muted">
@@ -25,7 +25,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         </p>
 
         <div class="mt-10 flex flex-wrap gap-4">
-          <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-lime px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
+          <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-gold px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
             Join the waitlist →
           </a>
           <a href={site.appUrl} rel="noopener noreferrer" target="_blank"
@@ -51,7 +51,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         <div>
           <dt class="sr-only">{s.label}</dt>
           <dd>
-            <span class="block font-display text-4xl tabular-nums text-gf-lime">
+            <span class="block font-display text-4xl tabular-nums text-gf-gold">
               <CountUp value={s.value} client:visible />
             </span>
             <span class="mt-1 block text-sm text-gf-muted">{s.label}</span>

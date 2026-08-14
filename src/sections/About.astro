@@ -15,8 +15,8 @@ const { as = 'h2' } = Astro.props;
 
     <ol class="space-y-6">
       {timeline.map((m) => (
-        <li class="border-l-2 border-gf-lime pl-5">
-          <p class="font-display text-xl text-gf-lime">{m.year}</p>
+        <li class="border-l-2 border-gf-gold pl-5">
+          <p class="font-display text-xl text-gf-gold">{m.year}</p>
           <p class="mt-1 text-sm text-gf-muted">{m.body}</p>
         </li>
       ))}
@@ -26,7 +26,7 @@ const { as = 'h2' } = Astro.props;
   <div class="mt-16 grid gap-5 lg:grid-cols-2">
     <Card>
       <h3 class="text-[length:var(--text-h3)] text-gf-text">{site.founder}</h3>
-      <p class="mt-1 text-sm font-bold text-gf-lime">Founder, GameFit</p>
+      <p class="mt-1 text-sm font-bold text-gf-gold">Founder, GameFit</p>
       <ul class="mt-5 space-y-2 text-sm text-gf-muted">
         <li>{site.location}</li>
         <li>BSc IT (Cybersecurity), Abu Dhabi University</li>
@@ -49,8 +49,8 @@ const { as = 'h2' } = Astro.props;
     </Card>
   </div>
 
-  <blockquote class="mt-16 border-l-2 border-gf-lime pl-6">
-    <p class="font-display text-[length:var(--text-h2)] uppercase text-gf-lime">{mission}</p>
+  <blockquote class="mt-16 border-l-2 border-gf-gold pl-6">
+    <p class="font-display text-[length:var(--text-h2)] uppercase text-gf-gold">{mission}</p>
     <footer class="mt-2 text-sm text-gf-muted">Our mission</footer>
   </blockquote>
 </SectionShell>

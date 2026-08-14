@@ -34,13 +34,13 @@ export default function WaitlistForm() {
 
   if (state === 'success') {
     return (
-      <div role="status" className="rounded-[var(--radius-lg)] border border-gf-lime/40 bg-gf-lime/10 p-8">
-        <h2 className="font-display text-2xl uppercase text-gf-lime">You&rsquo;re on the list</h2>
+      <div role="status" className="rounded-[var(--radius-lg)] border border-gf-gold/40 bg-gf-gold/10 p-8">
+        <h2 className="font-display text-2xl uppercase text-gf-gold">You&rsquo;re on the list</h2>
         <p className="mt-3 text-gf-muted">
           We&rsquo;ll email you when the beta opens. In the meantime, tell us what would
           make GameFit worth using.
         </p>
-        <a href="/feedback" className="mt-5 inline-block text-sm text-gf-lime underline underline-offset-4">
+        <a href="/feedback" className="mt-5 inline-block text-sm text-gf-gold underline underline-offset-4">
           Share feedback →
         </a>
       </div>
@@ -87,7 +87,7 @@ export default function WaitlistForm() {
 
       <button
         type="submit" disabled={state === 'submitting'}
-        className="h-12 w-full rounded-[var(--radius-md)] bg-gf-lime px-6 font-bold text-gf-bg disabled:opacity-60 sm:w-auto"
+        className="h-12 w-full rounded-[var(--radius-md)] bg-gf-gold px-6 font-bold text-gf-bg disabled:opacity-60 sm:w-auto"
       >
         {state === 'submitting' ? 'Joining…' : 'Join the waitlist'}
       </button>
@@ -95,7 +95,7 @@ export default function WaitlistForm() {
       {state === 'error' && (
         <div role="alert" className="rounded-[var(--radius-sm)] border border-gf-error/50 bg-gf-error/10 p-4 text-sm text-gf-text">
           Something went wrong sending that. Email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-gf-lime underline underline-offset-4">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-gf-gold underline underline-offset-4">
             {CONTACT_EMAIL}
           </a>{' '}
           and we&rsquo;ll add you manually.
