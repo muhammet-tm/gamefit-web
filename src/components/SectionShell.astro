@@ -1,27 +1,33 @@
 ---
+/**
+ * Sections used to carry a tracked uppercase eyebrow and a two-digit index
+ * ("01 — Core features") above every heading. Both are gone.
+ *
+ * The eyebrow above every section is the most saturated scaffolding pattern
+ * on the web right now; one deliberate kicker is voice, one on every section
+ * is grammar. The numbering was worse: these sections are Stats, Features,
+ * Leaderboard, Research, Roadmap, About, Contact — not a sequence, so the
+ * order carried no information a reader needed. Numbers earn their place
+ * where the content genuinely is ordered, which on this site is the
+ * four-step loop and nothing else.
+ */
 interface Props {
   id: string;
-  eyebrow?: string;
-  /** Two-digit section index, e.g. "01". Prefixed to the eyebrow label. */
-  index?: string;
   title?: string;
   band?: 'bg' | 'surface';
   narrow?: boolean;
   as?: 'h1' | 'h2';
 }
 
-const { id, eyebrow, index, title, band = 'bg', narrow = false, as = 'h2' } = Astro.props;
+const { id, title, band = 'bg', narrow = false, as = 'h2' } = Astro.props;
 const bandClass = band === 'surface' ? 'bg-gf-surface' : 'bg-gf-bg';
 const width = narrow ? 'max-w-[var(--container-narrow)]' : 'max-w-[var(--container-site)]';
 const Title = as;
 ---
 <section id={id} class={`${bandClass} py-[clamp(5rem,12vw,10rem)]`}>
   <div class={`mx-auto ${width} px-[clamp(1.25rem,5vw,4rem)]`}>
-    {eyebrow && (
-      <p class="text-xs font-bold uppercase tracking-[0.12em] text-gf-lime">{index && <span class="font-mono font-normal text-gf-muted">{index} &mdash; </span>}{eyebrow}</p>
-    )}
     {title && (
-      <Title class="mt-4 text-[length:var(--text-h1)] text-gf-text">{title}</Title>
+      <Title class="text-[length:var(--text-h1)] text-gf-text">{title}</Title>
     )}
     <slot />
   </div>

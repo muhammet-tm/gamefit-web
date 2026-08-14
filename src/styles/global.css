@@ -1,7 +1,8 @@
-@import "@fontsource/barlow-condensed/900.css";
-@import "@fontsource/dm-sans/400.css";
-@import "@fontsource/dm-sans/500.css";
-@import "@fontsource/dm-sans/700.css";
+/* Self-hosted via @fontsource, bundled by Astro — no third-party font request.
+   Archivo carries a width axis (62-125%), which is what gives the display face
+   its expanded, engineered proportion. */
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/hanken-grotesk/wght.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
 html {
@@ -28,13 +29,15 @@ body {
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 900;
+  font-stretch: 118%;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 0.95;
+  text-wrap: balance;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gf-lime);
+  outline: 2px solid var(--color-gf-gold);
   outline-offset: 2px;
 }
 

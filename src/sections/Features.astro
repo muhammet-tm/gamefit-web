@@ -24,7 +24,7 @@ const screens = [
 interface Props { as?: 'h1' | 'h2'; }
 const { as = 'h2' } = Astro.props;
 
-const accentText = { lime: 'text-gf-lime', violet: 'text-gf-violet-text', amber: 'text-gf-amber' };
+const accentText = { gold: 'text-gf-gold', slate: 'text-gf-slate', ember: 'text-gf-ember' };
 
 /** The shipped ladder: ten levels across five tiers, sub-ranks in between. */
 const ladder: { tier: 1 | 2 | 3 | 4 | 5; name: string; color: string; levels: string; sr: string }[] = [
@@ -35,7 +35,7 @@ const ladder: { tier: 1 | 2 | 3 | 4 | 5; name: string; color: string; levels: st
   { tier: 5, name: 'Apex', color: 'var(--color-tier-apex)', levels: 'L10', sr: 'level 10' },
 ];
 ---
-<SectionShell id="features" index="02" eyebrow="Core features" title="Not an app. An arena." as={as}>
+<SectionShell id="features" title="Not an app. An arena." as={as}>
   <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
     Three systems — AI coaching, deep gamification and social competition — fused
     into one adaptive feedback loop grounded in Self-Determination Theory.

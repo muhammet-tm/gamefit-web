@@ -24,7 +24,7 @@ Three rules hold that line:
 
 1. **Structure over decoration.** Depth comes from layered flat surfaces and
    hairline borders. No gradients on backgrounds, no glow, no glassmorphism.
-2. **One accent does the work.** Lime is the brand. It marks the single most
+2. **One accent does the work.** Gold is the brand. It marks the single most
    important thing in any viewport and nothing else. An interface where
    everything glows has no emphasis at all.
 3. **Real over illustrated.** Actual product screenshots, actual paper
@@ -41,61 +41,66 @@ is one set of values and no theme switching.
 
 | Token | Value | Role |
 |---|---|---|
-| `--gf-bg` | `#0D0F14` | Page background |
-| `--gf-surface` | `#161A22` | Cards, panels |
-| `--gf-elevated` | `#1E2330` | Raised elements, inputs, hover states |
-| `--gf-border` | `#2A2F3A` | Hairline dividers and card edges |
-| `--gf-text` | `#FFFFFF` | Primary text |
-| `--gf-text-muted` | `#8A8F9E` | Secondary text, captions, labels |
-| `--gf-lime` | `#C8FF00` | Primary accent, CTAs, key figures |
-| `--gf-amber` | `#FFB800` | Secondary accent, streaks, "in progress" |
-| `--gf-violet` | `#7C3AED` | Tertiary accent — **large text and fills only** |
-| `--gf-violet-text` | `#A78BFA` | Violet for text under 24px |
-| `--gf-success` | `#22C55E` | Completed states |
-| `--gf-error` | `#EF4444` | Errors, validation failures |
+| `--gf-bg` | `#0B1A24` | Page background |
+| `--gf-surface` | `#112532` | Cards, panels |
+| `--gf-elevated` | `#1A3242` | Raised elements, inputs, hover states |
+| `--gf-border` | `#24455A` | Hairline dividers and card edges |
+| `--gf-text` | `#F2F5F7` | Primary text |
+| `--gf-muted` | `#88A5B7` | Secondary text, captions, labels |
+| `--gf-gold` | `#F4B044` | Primary accent, CTAs, key figures, rank |
+| `--gf-ember` | `#E0680E` | Streaks, intensity, "in progress" |
+| `--gf-slate` | `#7FBBD4` | Tertiary accent, third chart series |
+| `--gf-success` | `#5FBF7C` | Completed states |
+| `--gf-error` | `#E5614A` | Errors, validation failures |
 
 These match the app's dark-mode `--gf-*` tokens exactly, so the site and the
 product read as one brand.
 
 ### 2.2 Measured contrast
 
-Contrast ratios against `--gf-bg` (`#0D0F14`), computed to WCAG 2.1 formula.
-These are calculated values, not estimates.
+Contrast ratios computed to the WCAG 2.1 formula. These are calculated values,
+not estimates, and are verified in CI by `tests/a11y.spec.ts` running axe on
+every route.
 
-| Foreground | Ratio | Body text (needs 4.5) | Large text (needs 3.0) |
+| Foreground | on `--gf-bg` | on `--gf-surface` | Body text (needs 4.5) |
 |---|---|---|---|
-| `#FFFFFF` | **19.0** | Pass | Pass |
-| `#C8FF00` lime | **16.4** | Pass | Pass |
-| `#FFB800` amber | **11.0** | Pass | Pass |
-| `#A78BFA` violet-text | **7.0** | Pass | Pass |
-| `#8A8F9E` muted | **5.9** | Pass | Pass |
-| `#7C3AED` violet | **3.3** | **FAIL** | Pass |
+| `#F2F5F7` text | **16.15** | 14.37 | Pass |
+| `#F4B044` gold | **9.38** | 8.35 | Pass |
+| `#88A5B7` muted | **6.83** | 6.08 | Pass |
+| `#5FBF7C` success | **7.77** | 6.92 | Pass |
+| `#E0680E` ember | **5.18** | 4.61 | Pass |
 
-**The violet rule.** `#7C3AED` fails AA for body text. It may be used for
-headings at 24px or larger, for backgrounds, and for borders. For any violet
-text below 24px, use `--gf-violet-text` (`#A78BFA`) instead. The old Base44
-site broke this in its research badge; the new one must not.
+**The ember rule.** `#E0680E` measures 3.90 on `--gf-elevated`. On that surface
+it is for fills and text at 18px or larger only; for smaller ember text on an
+elevated surface, move the text to `--gf-surface` or use `--gf-text`.
+
+**Surface, not page, is the binding ground.** Tier labels and card text render
+on `--gf-surface`, which is lighter than the page. Bronze shipped briefly at
+`#B5754A`, which passes on the page (4.72) and fails on a card (4.20). axe
+caught it. Always check the ground the text actually sits on.
 
 ### 2.3 Usage rules
 
-- **Lime marks one thing per section of content.** Persistent chrome — the
+- **Gold marks one thing per section of content.** Persistent chrome — the
   header wordmark and the primary CTA — is exempt. It is furniture a reader
   stops seeing after the first screen, and counting it makes the rule
-  unfollowable. Within a section's own content, lime marks the single most
+  unfollowable. Within a section's own content, gold marks the single most
   important element and nothing else.
 
-  *This rule was rewritten on 2026-08-08. It previously read "one lime element
+  *This rule was rewritten on 2026-08-08. It previously read "one accent element
   per viewport", which every screen violated the moment a sticky header was
   added. A rule the codebase cannot satisfy is worse than no rule, because it
   trains everyone to ignore the document.*
 - Tier colours (bronze through apex) are a closed system. They identify rank
   and nothing else, so a tier colour never doubles as a decorative accent.
 - Per-item accents are allowed where items are genuinely parallel and
-  distinct — the three feature cards each take one of lime, violet, amber.
+  distinct — the three feature cards each take one of gold, slate, ember.
   That is categorisation, not decoration.
-- Lime and amber never touch. Separate them with surface or space.
-- Never place lime text on white or on amber. Lime is a dark-background
-  colour only; on light fills it drops to roughly 1.3:1 and disappears.
+- Gold and ember never touch. Separate them with surface or space.
+- Never place gold text on a light fill. Gold is a dark-background colour;
+  on white it drops to roughly 1.9:1. The app carries a separate
+  `--gf-gold-text` (`#8A5A06`) for its light theme. This site is dark-only
+  and does not need it.
 - Body copy is `--gf-text-muted`. Reserve pure white for headings and for
   figures you want read first.
 - Semantic colours (`success`, `error`) are for state only, never decoration.
@@ -108,10 +113,16 @@ site broke this in its research badge; the new one must not.
 
 | Role | Family | Weights | Notes |
 |---|---|---|---|
-| Display and headings | Barlow Condensed | 900 | Uppercase, tight tracking |
-| Body and UI | DM Sans | 400, 500, 700 | Sentence case |
+| Display and headings | Archivo Variable | 400–900, width 62–125% | Uppercase, set at 118% width, tracking -0.03em |
+| Body and UI | Hanken Grotesk Variable | 300–800 | Sentence case |
 | Figures and code | JetBrains Mono | 500 | Stats, DOI, tabular numbers |
 | Arabic, all roles | Tajawal | 500, 700, 900 | Latin fonts above have no Arabic coverage |
+
+Archivo replaced Barlow Condensed and Hanken Grotesk replaced DM Sans in the
+2026-08-14 token swap. Condensed-uppercase-on-near-black is the most templated
+look in fitness software; the expanded width axis is what moves the display
+face away from it. DM Sans is additionally a training-data default that shows
+up on a large share of AI-generated sites.
 
 All are **self-hosted** as `woff2` with `font-display: swap`. They are not
 loaded from Google's CDN — that removes a third-party request on every page
@@ -119,7 +130,7 @@ load and avoids the GDPR exposure German courts have already ruled on for
 Google Fonts.
 
 Font files are subset per language and loaded conditionally: Arabic routes
-never download Barlow Condensed, and English routes never download Tajawal.
+never download Archivo, and English routes never download Tajawal.
 Bilingualism must not cost the English visitor a byte.
 
 ### 3.2 Scale
@@ -130,8 +141,8 @@ desktop.
 
 | Token | Size | Use |
 |---|---|---|
-| `--fs-hero` | `clamp(3rem, 9vw, 6.5rem)` | Home hero only, one per site |
-| `--fs-h1` | `clamp(2.25rem, 5.5vw, 4rem)` | Section titles |
+| `--fs-hero` | `clamp(2.9rem, 5.1vw, 4.5rem)` | Home hero only, one per site |
+| `--fs-h1` | `clamp(2.25rem, 5.5vw, 3.6rem)` | Section titles |
 | `--fs-h2` | `clamp(1.5rem, 3vw, 2.25rem)` | Sub-section titles |
 | `--fs-h3` | `clamp(1.125rem, 2vw, 1.375rem)` | Card titles |
 | `--fs-stat` | `clamp(2.5rem, 6vw, 4rem)` | Big figures in stat tiles |
@@ -142,10 +153,15 @@ desktop.
 
 ### 3.3 Rules
 
-- Display headings: Barlow Condensed 900, `text-transform: uppercase`,
-  `letter-spacing: -0.02em`, `line-height: 0.95`.
-- Eyebrow labels above section titles: DM Sans 700, `--fs-label`, uppercase,
-  `letter-spacing: 0.12em`, coloured lime.
+- Display headings: Archivo 900 at `font-stretch: 118%`, `text-transform:
+  uppercase`, `letter-spacing: -0.03em`, `line-height: 0.95`.
+- **No eyebrow labels above section titles, and no numbered section
+  markers.** Both were removed on 2026-08-14. A tracked uppercase kicker
+  above every heading is the most saturated scaffolding pattern on the web;
+  one deliberate kicker is voice, one per section is grammar. The `01 / 02`
+  indices were worse, because these sections are not a sequence and the
+  order carried no information. Numbers stay only where the content really
+  is ordered, which on this site is the four-step loop.
 - Body: `line-height: 1.65`, maximum measure `68ch`. Long lines are the most
   common readability failure on wide screens.
 - Numerals in stat tiles use `font-variant-numeric: tabular-nums` so figures
@@ -216,7 +232,7 @@ What mirrors and what does not:
 | Product screenshots | Do **not** mirror. The app's UI is what it is |
 | Charts with a time axis | Do **not** mirror. Time reads left-to-right in both |
 
-Arabic has no condensed display equivalent to Barlow Condensed, so Arabic
+Arabic has no expanded-grotesque display equivalent to Archivo, so Arabic
 headings use Tajawal 900 without the uppercase transform — Arabic script has
 no letter case, and forcing `text-transform: uppercase` on it is a no-op that
 signals the design was never checked.
@@ -282,19 +298,19 @@ blocked script can never leave a blank page.
 
 | Variant | Fill | Text | Border | Use |
 |---|---|---|---|---|
-| Primary | `--gf-lime` | `#0D0F14` | none | One per viewport |
+| Primary | `--gf-gold` | `#0B1A24` | none | One per viewport |
 | Secondary | transparent | `--gf-text` | `--gf-border` | Alternate actions |
 | Ghost | transparent | `--gf-text-muted` | none | Tertiary, nav |
 
-Height 48px, horizontal padding `--space-6` (24px), `--radius-md`, DM Sans
-700. Hover shifts fill brightness by 8%; focus draws a 2px lime outline at
-2px offset. Minimum touch target is 44×44px everywhere.
+Height 48px, horizontal padding `--space-6` (24px), `--radius-md`, Hanken
+Grotesk 700. Hover shifts fill brightness by 8%; focus draws a 2px gold
+outline at 2px offset. Minimum touch target is 44×44px everywhere.
 
 ### 7.2 Stat tile
 
 The workhorse of the Stats section. Surface background, 1px border,
 `--radius-lg`, padding `--space-6`. Contains a figure at `--fs-stat` in
-Barlow Condensed 900, a label at `--fs-body` in muted, and an optional source
+Archivo 900 expanded, a label at `--fs-body` in muted, and an optional source
 line at `--fs-small`.
 
 **Every statistic carries its source.** "77%" with "Andrew Chen, 2023"
@@ -315,7 +331,7 @@ Cards in a row are equal height via grid, never via fixed pixel heights.
 Borrowed from the app's rank system — the visual device that makes this site
 recognisably GameFit rather than a generic dark template. Pill shape,
 `--radius-full`, 1px border in the tier colour, background at 12% opacity,
-label in Barlow Condensed 900 uppercase at `--fs-label`.
+label in Archivo 900 expanded, uppercase, at `--fs-label`.
 
 ### 7.5 Forms
 
@@ -361,7 +377,7 @@ route rather than asserted.
 
 Non-negotiable:
 
-- Contrast per §2.2, including the violet rule.
+- Contrast per §2.2, including the ember rule.
 - Visible focus indicators on every interactive element. Never
   `outline: none` without a designed replacement.
 - Full keyboard operability, including the mobile menu, which traps focus

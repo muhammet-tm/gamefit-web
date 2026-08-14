@@ -1,0 +1,53 @@
+---
+/**
+ * The rank ladder.
+ *
+ * This section exists because the ladder IS the product's argument. Points
+ * only go up, so they stop meaning anything; a rank can fall. Showing the
+ * five tiers as one object is also what makes this page recognisably GameFit
+ * rather than a dark template with an accent colour.
+ *
+ * Tier colours come from tokens.css, which mirrors the app's TIER_CONFIG, so
+ * the emblems here and the emblems in the product are the same object.
+ */
+import SectionShell from '../components/SectionShell.astro';
+import RankEmblem from '../components/RankEmblem.astro';
+
+const tiers = [
+  { tier: 1 as const, name: 'Bronze', levels: 'Level 1–2', sub: 'II' },
+  { tier: 2 as const, name: 'Silver', levels: 'Level 3–4', sub: 'II' },
+  { tier: 3 as const, name: 'Gold', levels: 'Level 5–6', sub: 'II' },
+  { tier: 4 as const, name: 'Platinum', levels: 'Level 7–9', sub: 'III' },
+  { tier: 5 as const, name: 'Apex', levels: 'Level 10', sub: '' },
+];
+---
+<SectionShell id="ranks" band="surface" title="You don't earn points. You hold a rank.">
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    Points only go up, so they stop meaning anything. A rank can fall. Miss a
+    week and Gold I becomes Gold II, and you feel it. That is the whole
+    mechanic, and it is the reason the streak matters.
+  </p>
+
+  <ol class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    {tiers.map((t) => (
+      <li
+        class="rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-5"
+        style={`border-color: color-mix(in srgb, var(--color-tier-${t.name.toLowerCase()}) 34%, transparent)`}
+      >
+        <RankEmblem tier={t.tier} sub={t.sub} size={36} />
+        <p
+          class="mt-4 font-display text-[length:var(--text-h3)] uppercase"
+          style={`color: var(--color-tier-${t.name.toLowerCase()})`}
+        >
+          {t.name}
+        </p>
+        <p class="mt-1.5 font-mono text-xs text-gf-muted">{t.levels}</p>
+      </li>
+    ))}
+  </ol>
+
+  <p class="mt-8 max-w-[62ch] text-sm text-gf-muted">
+    Every reward is computed on the server, inside a Postgres function the
+    browser cannot bypass. The number you see is the number you earned.
+  </p>
+</SectionShell>

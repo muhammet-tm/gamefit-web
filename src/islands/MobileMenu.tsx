@@ -87,7 +87,7 @@ export default function MobileMenu({ items }: Props) {
             <a
               href="/beta"
               onClick={() => setOpen(false)}
-              className="mt-4 rounded-md bg-gf-lime px-4 py-4 text-center font-bold text-gf-bg"
+              className="mt-4 rounded-md bg-gf-gold px-4 py-4 text-center font-bold text-gf-bg"
             >
               Join waitlist
             </a>
