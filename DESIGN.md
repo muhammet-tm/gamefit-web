@@ -155,8 +155,13 @@ desktop.
 
 - Display headings: Archivo 900 at `font-stretch: 118%`, `text-transform:
   uppercase`, `letter-spacing: -0.03em`, `line-height: 0.95`.
-- Eyebrow labels above section titles: Hanken Grotesk 700, `--fs-label`,
-  uppercase, `letter-spacing: 0.12em`, coloured gold.
+- **No eyebrow labels above section titles, and no numbered section
+  markers.** Both were removed on 2026-08-14. A tracked uppercase kicker
+  above every heading is the most saturated scaffolding pattern on the web;
+  one deliberate kicker is voice, one per section is grammar. The `01 / 02`
+  indices were worse, because these sections are not a sequence and the
+  order carried no information. Numbers stay only where the content really
+  is ordered, which on this site is the four-step loop.
 - Body: `line-height: 1.65`, maximum measure `68ch`. Long lines are the most
   common readability failure on wide screens.
 - Numerals in stat tiles use `font-variant-numeric: tabular-nums` so figures

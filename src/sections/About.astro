@@ -7,7 +7,7 @@ import { site } from '../content/site';
 interface Props { as?: 'h1' | 'h2'; }
 const { as = 'h2' } = Astro.props;
 ---
-<SectionShell id="about" index="06" eyebrow="Our story" title="Built in Abu Dhabi. Scaling to the world." as={as}>
+<SectionShell id="about" title="Built in Abu Dhabi. Scaling to the world." as={as}>
   <div class="mt-10 grid gap-12 lg:grid-cols-2">
     <div class="space-y-5">
       {story.map((p) => <p class="text-gf-muted">{p}</p>)}

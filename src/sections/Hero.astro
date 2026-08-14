@@ -8,20 +8,18 @@ import DeviceFrame from '../components/DeviceFrame.astro';
   <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)]">
     <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
       <div>
-        <p class="inline-flex items-center gap-2 rounded-full border border-gf-gold/40 bg-gf-gold/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gf-gold">
-          AI-powered gamified fitness
-        </p>
-
-        <h1 class="mt-8 text-[length:var(--text-hero)] text-gf-text">
-          Fitness<br />
-          <span class="text-gf-gold">that sticks.</span><br />
-          <span class="text-gf-ember">Finally.</span>
+        <!-- The pill eyebrow ("AI-powered gamified fitness") is gone. It named
+             a category rather than a claim, and a tracked uppercase kicker
+             above the headline is the most templated opening on the web. -->
+        <h1 class="max-w-[13ch] text-[length:var(--text-hero)] text-gf-text">
+          Most apps lose you <span class="text-gf-gold">by day three.</span>
         </h1>
 
-        <p class="mt-8 max-w-[52ch] text-lg text-gf-muted">
-          77% of fitness app users quit within three days. GameFit fixes that — with
-          AI coaching, avatar evolution, XP progression and social competition in one
-          adaptive loop.
+        <p class="mt-7 max-w-[46ch] text-lg text-gf-muted">
+          77% of people abandon a fitness app inside three days. GameFit turns a
+          logged workout into XP, coins and a streak, then into a rank you can
+          lose. <strong class="font-semibold text-gf-text">The progress is the
+          product.</strong>
         </p>
 
         <div class="mt-10 flex flex-wrap gap-4">
