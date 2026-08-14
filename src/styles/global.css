@@ -49,3 +49,46 @@ h1, h2, h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   Motion
+
+   Same thesis as the app: GameFit is a fill-and-threshold system, so
+   "fill" is the signature move. Here that means the gold half of the
+   headline wipes in left to right rather than fading, which is the XP
+   meter applied to type.
+
+   This is a persuade surface, so it gets ONE rehearsed sequence on the
+   hero and one stagger on the rank ladder, which is genuinely a list you
+   climb in order. Every other section arrives plainly; a reveal on every
+   section is the pattern that makes long pages tiring.
+
+   Nothing here hides content by default. Each rule sits inside
+   `prefers-reduced-motion: no-preference`, so under reduce (and in any
+   engine without the feature) elements simply render in their final
+   state. The ladder additionally sits behind `@supports`, so browsers
+   without scroll-driven animation show it rather than animating it at
+   the wrong moment.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes gf-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 -0.06em 0 0); } }
+  @keyframes gf-lift { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* the focal move: gold fills across the headline */
+  .gf-hero-fill {
+    animation: gf-wipe 760ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+  }
+
+  .gf-hero-step {
+    animation: gf-lift 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--gf-i, 0) * 90ms + 120ms);
+  }
+
+  @supports (animation-timeline: view()) {
+    .gf-rank-step {
+      animation: gf-lift 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 26%;
+    }
+  }
+}

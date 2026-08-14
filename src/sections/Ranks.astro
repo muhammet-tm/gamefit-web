@@ -31,7 +31,7 @@ const tiers = [
   <ol class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
     {tiers.map((t) => (
       <li
-        class="rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-5"
+        class="gf-rank-step rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-5"
         style={`border-color: color-mix(in srgb, var(--color-tier-${t.name.toLowerCase()}) 34%, transparent)`}
       >
         <RankEmblem tier={t.tier} sub={t.sub} size={36} />
