@@ -72,6 +72,15 @@ export const sections: SectionMeta[] = [
       'GameFit began with a real problem: managing a fitness club at 15 and watching members quit from boredom, not effort.',
   },
   {
+    id: 'faq',
+    route: '/faq',
+    navLabel: 'FAQ',
+    title: 'Questions, answered.',
+    metaTitle: 'GameFit FAQ — Pricing, AI Coaching and Your Data',
+    metaDescription:
+      'What GameFit costs, which AI powers Coach G, why the leaderboard cannot be cheated, when the mobile apps arrive, and how to delete your data.',
+  },
+  {
     id: 'contact',
     route: '/contact',
     navLabel: 'Contact',

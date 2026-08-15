@@ -8,6 +8,7 @@ import Leaderboard from '../sections/Leaderboard.astro';
 import Research from '../sections/Research.astro';
 import Roadmap from '../sections/Roadmap.astro';
 import About from '../sections/About.astro';
+import Faq from '../sections/Faq.astro';
 import Contact from '../sections/Contact.astro';
 import { sections } from '../content/sections';
 
@@ -22,5 +23,6 @@ const hero = sections.find((s) => s.id === 'hero')!;
   <Research />
   <Roadmap />
   <About />
+  <Faq />
   <Contact />
 </BaseLayout>
