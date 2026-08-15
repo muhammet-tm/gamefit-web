@@ -1,0 +1,56 @@
+---
+import SectionShell from '../components/SectionShell.astro';
+import { faqs } from '../content/faq';
+
+interface Props { as?: 'h1' | 'h2'; }
+const { as = 'h2' } = Astro.props;
+
+/**
+ * FAQPage structured data, generated from the same array the section renders.
+ * Google requires the markup to match the visible content; deriving both from
+ * one source is what keeps that true when an answer is edited.
+ */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<SectionShell id="faq" band="bg" title="Questions, answered." as={as}>
+  <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
+    The things people ask before signing up.
+  </p>
+
+  <div class="mt-12 max-w-[76ch]">
+    {faqs.map((f, i) => (
+      <details
+        class="group border-b border-gf-border py-5"
+        open={i === 0}
+      >
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-6 text-left text-[length:var(--text-h3)] text-gf-text marker:content-none"
+        >
+          <span>{f.q}</span>
+          <!-- Decorative: the open/closed state is already conveyed by the
+               details element itself, which assistive tech announces. -->
+          <svg
+            class="size-5 shrink-0 text-gf-gold transition-transform duration-200 group-open:rotate-45"
+            viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" aria-hidden="true"
+          >
+            <path d="M10 4v12M4 10h12" />
+          </svg>
+        </summary>
+        <p class="mt-4 max-w-[62ch] text-base leading-relaxed text-gf-muted">
+          {f.a}
+        </p>
+      </details>
+    ))}
+  </div>
+</SectionShell>
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

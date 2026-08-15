@@ -72,9 +72,18 @@ test('security headers are actually served', async ({ page }) => {
 
 test('structured data survives the policy', async ({ page }) => {
   await page.goto(`${BASE}/`);
-  const ld = await page.locator('script[type="application/ld+json"]').textContent();
-  expect(ld).toBeTruthy();
-  expect(() => JSON.parse(ld!)).not.toThrow();
+  // The home page carries more than one block — SoftwareApplication from the
+  // head, FAQPage from the FAQ section — which Google supports and expects.
+  // Every one of them has to be valid JSON, so assert across all rather than
+  // assuming a single block.
+  const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(blocks.length).toBeGreaterThan(0);
+  const types = blocks.map((raw) => {
+    expect(() => JSON.parse(raw)).not.toThrow();
+    return JSON.parse(raw)['@type'];
+  });
+  expect(types).toContain('SoftwareApplication');
+  expect(types).toContain('FAQPage');
 });
 
 test('the header script still runs under the policy', async ({ page }) => {
