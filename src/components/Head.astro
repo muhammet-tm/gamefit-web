@@ -19,7 +19,11 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
 
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-<meta name="theme-color" content="#0D0F14" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- #0B1A24 to match --color-gf-bg. This had been #0D0F14 since before the
+     palette swap, so mobile browser chrome painted a slightly different navy
+     than the page it framed. -->
+<meta name="theme-color" content="#0B1A24" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={site.name} />

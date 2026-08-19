@@ -1,0 +1,154 @@
+---
+/**
+ * The GameFit lockup: husky mascot plus the drawn GAMEFIT lettering.
+ *
+ * The canonical geometry lives in the app repo at `src/lib/brand.js`, and the
+ * handoff kit it generates is `brand/*.svg` there. This file is the same
+ * shapes, transcribed for Astro. Two repos, no shared package, so if the mark
+ * ever changes, regenerate `brand/logo-horizontal-on-dark.svg` in the app and
+ * bring the path data across — do not redraw it by eye.
+ *
+ * Inline rather than an <img>: the header is above the fold on every route, so
+ * a linked file is a render-blocking round trip, and the lettering can take
+ * its colour from the palette instead of being baked into a PNG. It costs
+ * about 2.4 KB gzipped per page against budgets of 30 KB JS and 20 KB CSS.
+ *
+ * The lettering is vector on purpose. It arrived once as a base64 PNG inside
+ * an SVG wrapper, which could not scale past 1486px, could not be recoloured,
+ * and could not drive embroidery, foil, vinyl or laser cutting.
+ */
+interface Props {
+  /** Height of the mascot in px. The lettering scales from it. */
+  size?: number;
+  class?: string;
+}
+
+const { size = 34, class: className = '' } = Astro.props;
+const wordHeight = size * 0.56;
+const wordWidth = (wordHeight * 601) / 100;
+
+// Two rigs, same silhouette. Below 48px the detailed one loses: its eye
+// catchlights are r=5 on a 200-unit grid, so at 32px they land on a third of
+// a pixel and render as grey specks in the eye rather than as highlights. The
+// simplified rig drops them along with the smile and the inner-ear shadow,
+// thickens the outline 7 -> 10, and widens the ears, because a heavy outline
+// closes up a thin triangle. Same threshold the React <Mascot> uses.
+const detailed = size > 48;
+
+// Annotated rather than inferred: without this, TypeScript narrows SIMPLE to a
+// shape with no `sw`, because none of its members happen to set one, and the
+// shared render below then fails to compile.
+type MascotPath = { d: string; fill: string; stroke?: string; sw?: number };
+
+const DETAILED: MascotPath[] = [
+  { d: 'M44,76 C39,50 46,20 59,8 C74,18 90,42 98,60 Z', fill: '#29A3E0' },
+  { d: 'M156,76 C161,50 154,20 141,8 C126,18 110,42 102,60 Z', fill: '#29A3E0' },
+  { d: 'M56,66 C52,48 57,28 63,22 C72,32 82,48 88,58 Z', fill: '#152B47', stroke: 'none' },
+  { d: 'M144,66 C148,48 143,28 137,22 C128,32 118,48 112,58 Z', fill: '#152B47', stroke: 'none' },
+  { d: 'M100,46 C60,46 28,78 28,116 C28,156 60,186 100,186 C140,186 172,156 172,116 C172,78 140,46 100,46 Z', fill: '#29A3E0' },
+  { d: 'M34,130 C34,121 44,118 60,118 L140,118 C156,118 166,121 166,130 C166,160 138,186 100,186 C62,186 34,160 34,130 Z', fill: '#FFFFFF', stroke: 'none' },
+  { d: 'M40,92 L52,92', fill: 'none', stroke: '#8FDC1E', sw: 10.5 },
+  { d: 'M148,92 L160,92', fill: 'none', stroke: '#8FDC1E', sw: 10.5 },
+  { d: 'M97,90 L103,90', fill: 'none', stroke: '#8FDC1E', sw: 12.6 },
+  { d: 'M88,132 C88,129 112,129 112,132 C112,140 105,150 100,150 C95,150 88,140 88,132 Z', fill: '#152B47', stroke: 'none' },
+  { d: 'M100,150 L100,158', fill: 'none', stroke: '#152B47', sw: 5.6 },
+  { d: 'M100,158 C100,167 88,169 81,163', fill: 'none', stroke: '#152B47', sw: 5.6 },
+  { d: 'M100,158 C100,167 112,169 119,163', fill: 'none', stroke: '#152B47', sw: 5.6 },
+];
+
+const SIMPLE: MascotPath[] = [
+  { d: 'M42,76 C37,48 45,16 59,4 C75,16 92,42 100,60 Z', fill: '#29A3E0' },
+  { d: 'M158,76 C163,48 155,16 141,4 C125,16 108,42 100,60 Z', fill: '#29A3E0' },
+  { d: 'M100,44 C58,44 24,78 24,118 C24,158 58,190 100,190 C142,190 176,158 176,118 C176,78 142,44 100,44 Z', fill: '#29A3E0' },
+  { d: 'M30,132 C30,122 42,118 60,118 L140,118 C158,118 170,122 170,132 C170,162 140,190 100,190 C60,190 30,162 30,132 Z', fill: '#FFFFFF', stroke: 'none' },
+  { d: 'M87,134 C87,130 113,130 113,134 C113,143 106,153 100,153 C94,153 87,143 87,134 Z', fill: '#152B47', stroke: 'none' },
+];
+
+const paths = detailed ? DETAILED : SIMPLE;
+const lensRx = detailed ? 13 : 14;
+const lensW = detailed ? 46 : 48;
+const lensH = detailed ? 38 : 40;
+const lensY = detailed ? 82 : 80;
+const lensLx = detailed ? 52 : 48;
+const lensRx2 = detailed ? 102 : 104;
+const lensSw = detailed ? 10.5 : 11;
+const pupilR = detailed ? 9 : 11;
+const pupilY = detailed ? 102 : 101;
+const pupilLx = detailed ? 76 : 74;
+const pupilRxx = detailed ? 124 : 126;
+
+const GAME = [
+  'M46,40 L92,40 L92,64 L83,73 L46,73 Z',
+  'M37,0 L49,0 L86,100 L59,100 L52,80 L34,80 L27,100 L0,100 Z M43,26 L35,60 L51,60 Z',
+  'M0,100 L0,0 L27,0 L53,60 L79,0 L106,0 L106,100 L79,100 L79,46 L61,86 L45,86 L27,46 L27,100 Z',
+  'M0,0 L67,0 L76,9 L76,25 L27,25 L27,37 L66,37 L66,62 L27,62 L27,75 L76,75 L76,91 L67,100 L0,100 Z',
+];
+const FIT = [
+  'M0,0 L65,0 L74,9 L74,25 L27,25 L27,40 L65,40 L65,65 L27,65 L27,100 L0,100 Z',
+  'M0,0 L27,0 L27,100 L0,100 Z',
+  'M9,0 L71,0 L80,9 L80,25 L53,25 L53,100 L27,100 L27,25 L0,25 L0,9 Z',
+];
+const GAME_X = [0, 102, 198, 314];
+const FIT_X = [400, 484, 521];
+---
+
+<span class:list={['inline-flex items-center', className]} style={`gap:${size * 0.26}px`}>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 200 200"
+    aria-hidden="true"
+    focusable="false"
+    class="shrink-0"
+  >
+    <g
+      stroke="#152B47"
+      stroke-width={detailed ? 7 : 10}
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    >
+      {paths.map((p) => (
+        <path d={p.d} fill={p.fill} stroke={p.stroke} stroke-width={p.sw} />
+      ))}
+      <rect x={lensLx} y={lensY} width={lensW} height={lensH} rx={lensRx} fill="#A8D9F2" stroke="#8FDC1E" stroke-width={lensSw} />
+      <rect x={lensRx2} y={lensY} width={lensW} height={lensH} rx={lensRx} fill="#A8D9F2" stroke="#8FDC1E" stroke-width={lensSw} />
+      <circle cx={pupilLx} cy={pupilY} r={pupilR} fill="#152B47" stroke="none" />
+      <circle cx={pupilRxx} cy={pupilY} r={pupilR} fill="#152B47" stroke="none" />
+      {detailed && <circle cx="83" cy="95" r="5" fill="#FFFFFF" stroke="none" />}
+      {detailed && <circle cx="131" cy="95" r="5" fill="#FFFFFF" stroke="none" />}
+    </g>
+  </svg>
+
+  <svg
+    width={wordWidth}
+    height={wordHeight}
+    viewBox="0 0 601 100"
+    aria-hidden="true"
+    focusable="false"
+    class="shrink-0"
+  >
+    <g fill="var(--color-gf-text)">
+      {/* The G is an arc plus a bar, not one path: as a single path the bar
+          reads as a second subpath and punches a notch out of the bowl. */}
+      <path
+        d="M72.6,29.1 A32.5,36.5 0 1 0 72.6,70.9"
+        fill="none"
+        stroke="var(--color-gf-text)"
+        stroke-width="27"
+        stroke-linecap="butt"
+      />
+      {GAME.map((d, i) => (
+        <path transform={`translate(${GAME_X[i]},0)`} d={d} fill-rule={i === 1 ? 'evenodd' : undefined} />
+      ))}
+    </g>
+    <g fill="var(--color-gf-gold)">
+      {FIT.map((d, i) => (
+        <path transform={`translate(${FIT_X[i]},0)`} d={d} />
+      ))}
+    </g>
+  </svg>
+
+  <!-- Both SVGs are aria-hidden; the name comes from here, so a screen reader
+       announces "GameFit" once rather than twice or not at all. -->
+  <span class="sr-only">GameFit</span>
+</span>
