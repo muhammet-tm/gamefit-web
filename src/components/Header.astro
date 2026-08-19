@@ -1,6 +1,7 @@
 ---
 import { navSections } from '../content/sections';
 import MobileMenu from '../islands/MobileMenu';
+import Logo from './Logo.astro';
 
 const isHome = Astro.url.pathname === '/';
 const items = navSections.map((s) => ({
@@ -13,11 +14,18 @@ const items = navSections.map((s) => ({
   data-site-header
 >
   <div class="mx-auto flex h-16 max-w-[var(--container-site)] items-center justify-between px-[clamp(1.25rem,5vw,4rem)]">
-    <a href="/" class="font-display text-2xl uppercase text-gf-gold">GameFit</a>
+    <!-- The drawn lockup, not Archivo set in caps. They were never the same
+         shapes: the real mark is chamfered with a pointed A and a deep M, so
+         the site header was showing an approximation of a logo the favicon in
+         the same tab already rendered correctly. -->
+    <a href="/" class="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gf-gold">
+      <Logo size={32} />
+    </a>
 
     <!-- lg, not md: at exactly 768px the wordmark, seven links and the CTA
          need 783px and push the page into horizontal scroll. Tablet portrait
-         gets the overlay menu, which suits it anyway. -->
+         gets the overlay menu, which suits it anyway. The lockup is wider than
+         the old text wordmark, so this threshold matters more, not less. -->
     <nav aria-label="Primary" class="hidden lg:block">
       <ul class="flex items-center gap-8">
         {items.map((item) => (
