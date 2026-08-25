@@ -68,6 +68,9 @@ test('security headers are actually served', async ({ page }) => {
   expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin');
   expect(h['content-security-policy']).toContain("frame-ancestors 'none'");
   expect(h['content-security-policy']).not.toContain("script-src 'self' 'unsafe-inline'");
+  // Severs window.opener for anything this site opens or that opens it. The
+  // app already sets this; the two surfaces are held to the same header set.
+  expect(h['cross-origin-opener-policy']).toBe('same-origin');
 });
 
 test('structured data survives the policy', async ({ page }) => {
