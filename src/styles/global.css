@@ -1,8 +1,12 @@
-/* Self-hosted via @fontsource, bundled by Astro — no third-party font request.
-   Archivo carries a width axis (62-125%), which is what gives the display face
-   its expanded, engineered proportion. */
-@import "@fontsource-variable/archivo/wdth.css";
-@import "@fontsource-variable/hanken-grotesk/wght.css";
+/* Self-hosted via @fontsource, bundled by Astro: no third-party font request,
+   so the CSP and the GDPR posture are unchanged. Ignition sets everything in
+   Poppins, with JetBrains Mono for figures. Only the latin subset of each
+   weight is imported; a weight not listed here falls back to the nearest. */
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/latin-800.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
 html {
@@ -26,14 +30,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Ignition headings are sentence case in Poppins 800. The expanded Archivo
+   capitals of the navy system are retired; components that set a short
+   label in caps still do so explicitly with `uppercase`. */
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 900;
-  font-stretch: 118%;
-  text-transform: uppercase;
+  font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 0.95;
+  line-height: 1.05;
   text-wrap: balance;
+}
+
+/* The Ignition action gradient for primary calls to action. background-color
+   is the fallback a forced-colors or print context sees. */
+.gf-cta {
+  background-color: var(--color-gf-cta-to);
+  background-image: linear-gradient(110deg, var(--color-gf-cta-from), var(--color-gf-cta-to));
+  color: #FFFFFF;
 }
 
 :focus-visible {
@@ -54,9 +67,9 @@ h1, h2, h3 {
    Motion
 
    Same thesis as the app: GameFit is a fill-and-threshold system, so
-   "fill" is the signature move. Here that means the gold half of the
+   "fill" is the signature move. Here that means the orange half of the
    headline wipes in left to right rather than fading, which is the XP
-   meter applied to type.
+   meter applied to type, and the hero's XP ring draws to its value.
 
    This is a persuade surface, so it gets ONE rehearsed sequence on the
    hero and one stagger on the rank ladder, which is genuinely a list you
@@ -83,6 +96,18 @@ h1, h2, h3 {
     animation: gf-lift 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: calc(var(--gf-i, 0) * 90ms + 120ms);
   }
+
+  /* Ignition hero. The ring's resting stroke-dashoffset is its real value;
+     this only draws it in from empty, so a blocked animation still shows
+     the right arc. The orbit and the chip float are the ambient layer:
+     slow enough to read as idle, not as a loading state. */
+  @keyframes gf-ring { from { stroke-dashoffset: var(--gf-ring-from); } }
+  @keyframes gf-spin { to { transform: rotate(360deg); } }
+  @keyframes gf-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .gf-ring-draw { animation: gf-ring 1.2s cubic-bezier(0.16, 1, 0.3, 1) 400ms both; }
+  .gf-orbit { transform-origin: 220px 220px; animation: gf-spin 80s linear infinite; }
+  .gf-float { animation: gf-float 5s ease-in-out var(--gf-f, 0s) infinite; }
 
   @supports (animation-timeline: view()) {
     .gf-rank-step {

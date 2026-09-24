@@ -2,17 +2,26 @@
 import { site } from '../content/site';
 import { heroStats } from '../content/stats';
 import CountUp from '../islands/CountUp';
-import DeviceFrame from '../components/DeviceFrame.astro';
+
+// The ring geometry is computed once so the SVG, the resting arc and the
+// draw-from value cannot drift apart. 76% is illustrative: it is the same
+// "600 XP to Gold II" moment the chips below describe.
+const R = 196;
+const C = 2 * Math.PI * R;
+const ARC = C * (1 - 0.76);
 ---
 <section id="hero" class="bg-gf-bg pt-20 pb-[clamp(4rem,10vw,8rem)]">
   <div class="mx-auto max-w-[var(--container-site)] px-[clamp(1.25rem,5vw,4rem)]">
-    <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
       <div>
-        <!-- The pill eyebrow ("AI-powered gamified fitness") is gone. It named
+        <!-- inline-block on the orange phrase is load-bearing: the wipe is a
+             clip-path, and on an inline box that wraps across two lines it
+             clips to the first fragment, so "day three." vanished.
+             The pill eyebrow ("AI-powered gamified fitness") is gone. It named
              a category rather than a claim, and a tracked uppercase kicker
              above the headline is the most templated opening on the web. -->
         <h1 class="gf-hero-step max-w-[13ch] text-[length:var(--text-hero)] text-gf-text" style="--gf-i:0">
-          Most apps lose you <span class="gf-hero-fill text-gf-gold">by day three.</span>
+          Most apps lose you <span class="gf-hero-fill inline-block text-gf-ember">by day three.</span>
         </h1>
 
         <p class="gf-hero-step mt-7 max-w-[46ch] text-lg text-gf-muted" style="--gf-i:1">
@@ -23,7 +32,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         </p>
 
         <div class="gf-hero-step mt-10 flex flex-wrap gap-4" style="--gf-i:2">
-          <a href="/beta" class="rounded-[var(--radius-md)] bg-gf-gold px-7 py-3.5 font-bold text-gf-bg transition-opacity hover:opacity-90">
+          <a href="/beta" class="gf-cta rounded-[var(--radius-md)] px-7 py-3.5 font-bold transition-opacity hover:opacity-90">
             Join the waitlist →
           </a>
           <a href={site.appUrl} rel="noopener noreferrer" target="_blank"
@@ -33,14 +42,60 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         </div>
       </div>
 
-      <!-- eager, not lazy: this is the largest element above the fold, so
-           deferring it would delay Largest Contentful Paint rather than help. -->
-      <div class="gf-hero-step mx-auto w-full max-w-[320px] lg:max-w-[380px]" style="--gf-i:2">
-        <DeviceFrame
-          name="dashboard"
-          loading="eager"
-          alt="The GameFit home screen: a Bronze rank badge, an XP bar part-way to the next level, a one-day streak, and quick actions for logging a workout or opening the coach."
-        />
+      <!-- Ignition: the avatar inside its XP ring is the product's core
+           readout, drawn from the app's own layered rig rather than a stock
+           illustration. The chips are the moments a workout produces. -->
+      <div class="gf-hero-step relative mx-auto w-full max-w-[440px]" style="--gf-i:2">
+        <div class="relative aspect-square">
+          <div aria-hidden="true" class="absolute inset-[22%] rounded-full bg-gf-red opacity-40 blur-[70px]"></div>
+          <svg viewBox="0 0 440 440" class="absolute inset-0 h-full w-full" aria-hidden="true">
+            <defs>
+              <linearGradient id="hero-heat" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#E53E3E" />
+                <stop offset="1" stop-color="#F4B044" />
+              </linearGradient>
+            </defs>
+            <circle cx="220" cy="220" r="216" fill="none" stroke="#222226" stroke-width="1.5" />
+            <g class="gf-orbit">
+              <circle cx="220" cy="220" r="206" fill="none" stroke="#2E2E33" stroke-width="2" stroke-dasharray="2 12" />
+            </g>
+            <circle cx="220" cy="220" r={R} fill="#1E1E21" stroke="#28282C" stroke-width="16" />
+            <circle class="gf-ring-draw" cx="220" cy="220" r={R} fill="none" stroke="url(#hero-heat)"
+              stroke-width="16" stroke-linecap="round" stroke-dasharray={C}
+              transform="rotate(-90 220 220)"
+              style={`stroke-dashoffset:${ARC};--gf-ring-from:${C}`} />
+          </svg>
+          <img
+            src="/avatars/apex-warrior-300.webp"
+            srcset="/avatars/apex-warrior-300.webp 300w, /avatars/apex-warrior-600.webp 600w"
+            sizes="(max-width: 1024px) 50vw, 240px"
+            width="300" height="420"
+            loading="eager" fetchpriority="high" decoding="async"
+            alt="An Apex-rank Warrior avatar with an ember aura, the top of GameFit's five ranks"
+            class="absolute left-1/2 top-1/2 w-[52%] -translate-x-1/2 -translate-y-1/2"
+          />
+        </div>
+
+        <div class="gf-float absolute -left-2 top-[6%] flex items-center gap-3 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3 sm:-left-8" style="--gf-f:0s">
+          <span class="font-mono text-lg font-medium text-gf-gold tabular-nums">+180 XP</span>
+          <span class="text-xs text-gf-muted">HIIT, 45 min</span>
+        </div>
+
+        <div class="gf-float absolute -right-2 top-[42%] flex items-center gap-2 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3 sm:-right-6" style="--gf-f:0.8s">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF6B00" d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <span class="text-sm font-semibold text-gf-text">6-day streak</span>
+        </div>
+
+        <div class="gf-float absolute bottom-[2%] left-[4%] w-[62%] max-w-[260px] rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3" style="--gf-f:1.4s">
+          <div class="flex justify-between text-xs font-semibold">
+            <span class="text-tier-silver">Silver I</span>
+            <span class="text-tier-gold">Gold II</span>
+          </div>
+          <div class="mt-2 h-2 overflow-hidden rounded-full bg-gf-elevated">
+            <div class="h-full w-[76%] rounded-full bg-[linear-gradient(90deg,var(--color-gf-red),var(--color-gf-ember))]"></div>
+          </div>
+          <p class="mt-1.5 text-xs text-gf-muted">600 XP to the next rank</p>
+        </div>
       </div>
     </div>
 
@@ -49,7 +104,7 @@ import DeviceFrame from '../components/DeviceFrame.astro';
         <div>
           <dt class="sr-only">{s.label}</dt>
           <dd>
-            <span class="block font-display text-4xl tabular-nums text-gf-gold">
+            <span class="block font-display text-4xl font-extrabold tabular-nums text-gf-gold">
               <CountUp value={s.value} client:visible />
             </span>
             <span class="mt-1 block text-sm text-gf-muted">{s.label}</span>

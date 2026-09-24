@@ -90,7 +90,7 @@ export default function FeedbackForm() {
       {error && <p aria-live="polite" className="text-sm text-gf-error">{error}</p>}
 
       <button type="submit" disabled={state === 'submitting'}
-        className="h-12 w-full rounded-[var(--radius-md)] bg-gf-gold px-6 font-bold text-gf-bg disabled:opacity-60 sm:w-auto">
+        className="gf-cta h-12 w-full rounded-[var(--radius-md)] px-6 font-bold disabled:opacity-60 sm:w-auto">
         {state === 'submitting' ? 'Sending…' : 'Send feedback'}
       </button>
 
