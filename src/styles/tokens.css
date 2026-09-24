@@ -1,23 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Ratios against --color-gf-bg (#0B1A24), WCAG 2.1:
-     text 16.15 · muted 6.83 · gold 9.38 · ember 5.18 · success 6.08 · error 5.17.
-     All pass AA for body text. Ember measures 3.90 on --color-gf-elevated, so
-     on that surface it is for fills and text >=18px only. */
-  --color-gf-bg: #0B1A24;
-  --color-gf-surface: #112532;
-  --color-gf-elevated: #1A3242;
-  --color-gf-border: #24455A;
-  --color-gf-text: #F2F5F7;
-  --color-gf-muted: #88A5B7;
+  /* Ignition (owner-approved 2026-09-24; app repo docs/IGNITION_ROLLOUT.md).
+     Ratios against --color-gf-bg (#141416), WCAG 2.1: text 16.9 · muted 7.1 ·
+     gold 9.8 · ember 6.5 · slate 8.7 · success 8.1 · error 5.4. All pass AA
+     for body text; on --color-gf-elevated ember is 5.2 and muted 5.7.
+     Same values as the app's dark theme in src/index.css. */
+  --color-gf-bg: #141416;
+  --color-gf-surface: #1E1E21;
+  --color-gf-elevated: #28282C;
+  --color-gf-border: #2E2E33;
+  --color-gf-text: #F5F5F4;
+  --color-gf-muted: #A1A1AA;
   --color-gf-gold: #F4B044;
-  --color-gf-ember: #E0680E;
+  --color-gf-ember: #FF6B00;
+  --color-gf-red: #E53E3E;
   --color-gf-slate: #7FBBD4;
   --color-gf-success: #5FBF7C;
   --color-gf-error: #E5614A;
 
-  /* Rank tier colours — identical to the shipped app's TIER_CONFIG in
+  /* The action gradient. White text is 4.85:1 on the red end and 4.81:1 on
+     the orange end. Primary calls to action only; never destructive. */
+  --color-gf-cta-from: #D92B2B;
+  --color-gf-cta-to: #C8470E;
+
+  /* Rank tier colors — identical to the shipped app's TIER_CONFIG in
      src/components/avatar/tiers.js, so the site's emblems and the product's
      emblems are the same object. Change both together.
      Apex moved off violet (#9664FF), which measured 3.36:1 and failed AA. */
@@ -27,8 +34,8 @@
   --color-tier-platinum: #7FBBD4;
   --color-tier-apex: #E0680E;
 
-  --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Display ceiling lowered from 6.5rem: at 9vw the old hero ran to five lines

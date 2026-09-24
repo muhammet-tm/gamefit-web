@@ -13,7 +13,14 @@ deciding whether to take the founder seriously.
 
 ## 1. Identity
 
-**Name:** Dark RPG Athletic.
+**Name:** Ignition (since 2026-09-24; previously Dark RPG Athletic).
+
+Ignition was chosen by the owner from five style directions and is shared with
+the app; the rollout plan, gates and rollback live in the app repo at
+`docs/IGNITION_ROLLOUT.md`. It is built from two references: the designmd.app
+"Fitness App de Treinos" system (charcoal canvas, red and orange energy,
+progress rings, counters) and Refero's Peloton analysis (one red action color
+on a dark runway).
 
 The product turns exercise into a role-playing game. The design language
 should feel like the interface of a game you'd actually want to play —
@@ -23,10 +30,11 @@ without tipping into neon gamer clichés or looking unserious to an investor.
 Three rules hold that line:
 
 1. **Structure over decoration.** Depth comes from layered flat surfaces and
-   hairline borders. No gradients on backgrounds, no glow, no glassmorphism.
-2. **One accent does the work.** Gold is the brand. It marks the single most
-   important thing in any viewport and nothing else. An interface where
-   everything glows has no emphasis at all.
+   hairline borders. No gradients on backgrounds, no glassmorphism. The one
+   sanctioned glow is the soft red bloom behind the hero's XP ring.
+2. **Heat means act, gold means earned.** The red-to-orange action gradient
+   marks the primary call to action and nothing else; gold marks XP, rewards
+   and key figures. An interface where everything glows has no emphasis.
 3. **Real over illustrated.** Actual product screenshots, actual paper
    citation, actual numbers. No stock photography, no abstract 3D blobs.
 
@@ -41,14 +49,16 @@ is one set of values and no theme switching.
 
 | Token | Value | Role |
 |---|---|---|
-| `--gf-bg` | `#0B1A24` | Page background |
-| `--gf-surface` | `#112532` | Cards, panels |
-| `--gf-elevated` | `#1A3242` | Raised elements, inputs, hover states |
-| `--gf-border` | `#24455A` | Hairline dividers and card edges |
-| `--gf-text` | `#F2F5F7` | Primary text |
-| `--gf-muted` | `#88A5B7` | Secondary text, captions, labels |
-| `--gf-gold` | `#F4B044` | Primary accent, CTAs, key figures, rank |
-| `--gf-ember` | `#E0680E` | Streaks, intensity, "in progress" |
+| `--gf-bg` | `#141416` | Page background (charcoal) |
+| `--gf-surface` | `#1E1E21` | Cards, panels |
+| `--gf-elevated` | `#28282C` | Raised elements, inputs, hover states |
+| `--gf-border` | `#2E2E33` | Hairline dividers and card edges |
+| `--gf-text` | `#F5F5F4` | Primary text |
+| `--gf-muted` | `#A1A1AA` | Secondary text, captions, labels |
+| `--gf-gold` | `#F4B044` | XP, rewards, key figures, rank |
+| `--gf-ember` | `#FF6B00` | Heat: streaks, the headline accent, "in progress" |
+| `--gf-red` | `#E53E3E` | Start of the heat gradient; decorative only |
+| `--gf-cta-from` / `--gf-cta-to` | `#D92B2B` / `#C8470E` | The action gradient, white text |
 | `--gf-slate` | `#7FBBD4` | Tertiary accent, third chart series |
 | `--gf-success` | `#5FBF7C` | Completed states |
 | `--gf-error` | `#E5614A` | Errors, validation failures |
@@ -64,15 +74,17 @@ every route.
 
 | Foreground | on `--gf-bg` | on `--gf-surface` | Body text (needs 4.5) |
 |---|---|---|---|
-| `#F2F5F7` text | **16.15** | 14.37 | Pass |
-| `#F4B044` gold | **9.38** | 8.35 | Pass |
-| `#88A5B7` muted | **6.83** | 6.08 | Pass |
-| `#5FBF7C` success | **7.77** | 6.92 | Pass |
-| `#E0680E` ember | **5.18** | 4.61 | Pass |
+| `#F5F5F4` text | **16.9** | 15.2 | Pass |
+| `#F4B044` gold | **9.8** | 8.8 | Pass |
+| `#A1A1AA` muted | **7.1** | 6.4 | Pass |
+| `#5FBF7C` success | **8.1** | 7.3 | Pass |
+| `#FF6B00` ember | **6.5** | 5.8 | Pass |
+| `#E5614A` error | **5.4** | 4.85 | Pass |
+| White on the action gradient | 4.85 (red end), 4.81 (orange end) | | Pass |
 
-**The ember rule.** `#E0680E` measures 3.90 on `--gf-elevated`. On that surface
-it is for fills and text at 18px or larger only; for smaller ember text on an
-elevated surface, move the text to `--gf-surface` or use `--gf-text`.
+**The ember rule is retired.** The old ember (`#E0680E`) measured 3.90 on
+`--gf-elevated` and was fills-only there. The Ignition orange measures 5.2 on
+that surface, so it is safe as body text on every ground.
 
 **Surface, not page, is the binding ground.** Tier labels and card text render
 on `--gf-surface`, which is lighter than the page. Bronze shipped briefly at
@@ -113,13 +125,15 @@ caught it. Always check the ground the text actually sits on.
 
 | Role | Family | Weights | Notes |
 |---|---|---|---|
-| Display and headings | Archivo Variable | 400–900, width 62–125% | Uppercase, set at 118% width, tracking -0.03em |
-| Body and UI | Hanken Grotesk Variable | 300–800 | Sentence case |
+| Display and headings | Poppins | 800 | Sentence case, tracking -0.03em |
+| Body and UI | Poppins | 400–700 | Sentence case |
 | Figures and code | JetBrains Mono | 500 | Stats, DOI, tabular numbers |
 | Arabic, all roles | Tajawal | 500, 700, 900 | Latin fonts above have no Arabic coverage |
 
-Archivo replaced Barlow Condensed and Hanken Grotesk replaced DM Sans in the
-2026-08-14 token swap. Condensed-uppercase-on-near-black is the most templated
+Ignition (2026-09-24) sets everything in Poppins, the family its reference
+system specifies, and retires Archivo and Hanken Grotesk. Only the latin
+subset of five weights is imported. History: Archivo replaced Barlow Condensed
+and Hanken Grotesk replaced DM Sans in the 2026-08-14 token swap. Condensed-uppercase-on-near-black is the most templated
 look in fitness software; the expanded width axis is what moves the display
 face away from it. DM Sans is additionally a training-data default that shows
 up on a large share of AI-generated sites.
@@ -153,8 +167,12 @@ desktop.
 
 ### 3.3 Rules
 
-- Display headings: Archivo 900 at `font-stretch: 118%`, `text-transform:
-  uppercase`, `letter-spacing: -0.03em`, `line-height: 0.95`.
+- Display headings: Poppins 800, sentence case, `letter-spacing: -0.03em`,
+  `line-height: 1.05`. Short labels that should read as caps set `uppercase`
+  explicitly.
+- A phrase animated with the clip-path wipe (`.gf-hero-fill`) must be
+  `inline-block`. On an inline box that wraps, the clip covers only the first
+  line fragment, and the rest of the phrase disappears.
 - **No eyebrow labels above section titles, and no numbered section
   markers.** Both were removed on 2026-08-14. A tracked uppercase kicker
   above every heading is the most saturated scaffolding pattern on the web;
@@ -298,12 +316,13 @@ blocked script can never leave a blank page.
 
 | Variant | Fill | Text | Border | Use |
 |---|---|---|---|---|
-| Primary | `--gf-gold` | `#0B1A24` | none | One per viewport |
+| Primary | `.gf-cta`: `#D92B2B` to `#C8470E` at 110deg | `#FFFFFF` | none | One per viewport |
 | Secondary | transparent | `--gf-text` | `--gf-border` | Alternate actions |
 | Ghost | transparent | `--gf-text-muted` | none | Tertiary, nav |
 
-Height 48px, horizontal padding `--space-6` (24px), `--radius-md`, Hanken
-Grotesk 700. Hover shifts fill brightness by 8%; focus draws a 2px gold
+Height 48px, horizontal padding `--space-6` (24px), `--radius-md`, Poppins
+700. The primary button uses the `.gf-cta` utility in `global.css`, never an
+inline background, so the gradient and its fallback color stay together. Hover shifts fill brightness by 8%; focus draws a 2px gold
 outline at 2px offset. Minimum touch target is 44×44px everywhere.
 
 ### 7.2 Stat tile

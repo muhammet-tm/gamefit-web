@@ -5,6 +5,25 @@ import { ROUTES } from './routes';
 for (const route of ROUTES) {
   test(`${route} has no accessibility violations`, async ({ page }) => {
     await page.goto(route);
+    // Contrast is judged on the settled page. The hero's entrance fades text
+    // in over ~0.6s, and a scan that lands mid-fade reads a partly
+    // transparent paragraph as a contrast failure (seen as a 1-in-4 flake on
+    // the home route). Wait for every finite, time-based animation to finish;
+    // the looping ones (chip float, orbit) move position only and never
+    // change contrast. Scroll-driven animations (the rank ladder) are skipped:
+    // they only finish when scrolled, so waiting on them hangs. Capped at 3s.
+    await page.evaluate(() =>
+      Promise.race([
+        Promise.all(
+          document
+            .getAnimations()
+            .filter((a) => a.timeline === document.timeline)
+            .filter((a) => a.effect?.getTiming().iterations !== Infinity)
+            .map((a) => a.finished.catch(() => undefined)),
+        ),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
+      ]),
+    );
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
