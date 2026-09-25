@@ -26,7 +26,8 @@ behavioural science.
 
 ## The problem
 
-**77% of people who install a fitness app stop using it within three days.**
+**Only 3% of people who install a fitness app are still using it on day 30**
+(Business of Apps benchmarks, 2023 data).
 Not because they lack discipline — because nothing brings them back. No
 progression, no feedback that adapts, no reason to open it tomorrow.
 

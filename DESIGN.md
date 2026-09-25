@@ -332,8 +332,12 @@ The workhorse of the Stats section. Surface background, 1px border,
 Archivo 900 expanded, a label at `--fs-body` in muted, and an optional source
 line at `--fs-small`.
 
-**Every statistic carries its source.** "77%" with "Andrew Chen, 2023"
-beneath it is credible; "77%" alone is marketing. Figures drawn from the user
+**Every statistic carries its source.** "3%" with "Business of Apps
+benchmarks, 2023 data" beneath it is credible; "3%" alone is marketing. The
+source has to match the claim's scope and year: the site once printed "77% of
+fitness app users quit within three days, Andrew Chen, 2023", but that figure
+is Quettra data on all app categories, published in 2015, and a test in
+`tests/content.spec.ts` now keeps it out. Figures drawn from the user
 survey are attributed to the peer-reviewed research; the site does not print
 a participant count.
 
