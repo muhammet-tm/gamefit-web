@@ -12,6 +12,16 @@ interface Props {
 }
 
 const { title, description, path } = Astro.props;
+
+// Vercel Web Analytics: cookieless page-view counts (see /privacy). The
+// script is served from this site's own origin, so `script-src 'self'`
+// already allows it and the generated CSP needs no new hash. The npm
+// package was rejected on purpose: its component is inlined, and on Vercel
+// its text carries a per-build seed, so the hash committed in vercel.json
+// could never match and the policy would block it. Only production builds
+// on Vercel include the tag; elsewhere /_vercel/insights does not exist and
+// the request would 404.
+const analytics = process.env.VERCEL_ENV === 'production';
 ---
 <!doctype html>
 <html lang="en">
@@ -30,5 +40,6 @@ const { title, description, path } = Astro.props;
       <slot />
     </main>
     <Footer />
+    {analytics && <script is:inline defer src="/_vercel/insights/script.js"></script>}
   </body>
 </html>

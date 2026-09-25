@@ -113,9 +113,11 @@ that breaks any of these fails.
 
 ### Security
 
-- **No third-party scripts.** No analytics, no tag managers, no tracking
-  pixels, and no cookies. Fonts are self-hosted, so no external service is
-  told that you visited.
+- **No third-party scripts.** No tag managers, no tracking pixels, and no
+  cookies. Page views are counted with Vercel Web Analytics, which is
+  cookieless and served from this site's own origin; only production builds
+  on Vercel include it (`src/layouts/BaseLayout.astro`). Fonts are
+  self-hosted, so no service other than the host is told that you visited.
 - **A generated Content-Security-Policy.** Astro inlines several scripts it
   controls, so a hand-written `script-src 'self'` blocks its own hydration
   bootstrap and silently breaks the site. `scripts/generate-csp.mjs` hashes
