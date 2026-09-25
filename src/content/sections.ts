@@ -15,7 +15,7 @@ export const sections: SectionMeta[] = [
     title: 'Fitness that sticks. Finally.',
     metaTitle: 'GameFit — Fitness, Gamified',
     metaDescription:
-      '77% of fitness app users quit within three days. GameFit fixes that with AI coaching, avatar evolution and social competition, grounded in peer-reviewed research.',
+      'Only 3% of fitness app users are still active on day 30. GameFit fixes that with AI coaching, avatar evolution and social competition, grounded in peer-reviewed research.',
   },
   {
     id: 'stats',
@@ -24,7 +24,7 @@ export const sections: SectionMeta[] = [
     title: 'The case for GameFit',
     metaTitle: 'The Numbers Behind GameFit',
     metaDescription:
-      'The fitness app retention crisis in data: 77% abandonment within three days, a $33.6B market by 2033, and what our research found.',
+      'The fitness app retention crisis in data: 3% of users still active on day 30, a $33.6B market by 2033, and what our research found.',
   },
   {
     id: 'features',
