@@ -13,9 +13,9 @@ export const heroStats: Stat[] = [
 
 export const marketStats: Stat[] = [
   { value: '3%', label: 'Fitness app users still active on day 30', source: 'Business of Apps benchmarks, 2023 data', accent: 'gold' },
-  { value: '$33.6B', label: 'Global fitness app market by 2033', source: '13.4% CAGR from $12.5B in 2023', accent: 'ember' },
-  { value: '$25.3B', label: 'AI coaching segment by 2033', source: '27.6% CAGR', accent: 'slate' },
-  { value: '160+', label: 'Prototype interactions during testing', source: 'Validated November 2025', accent: 'plain' },
+  { value: '$33.6B', label: 'Global fitness app market by 2033', source: 'Grand View Research: $12.1B in 2025, 13.4% a year', accent: 'ember' },
+  { value: '$201M', label: 'UAE and Saudi fitness app markets, 2025', source: 'Grand View Research; our launch markets', accent: 'slate' },
+  { value: '66%', label: 'UAE adults not active enough', source: 'WHO Global Health Observatory, 2022', accent: 'plain' },
 ];
 
 export const surveyStats: Stat[] = [
