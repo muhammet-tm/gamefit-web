@@ -15,7 +15,7 @@ export const sections: SectionMeta[] = [
     title: 'Fitness that sticks. Finally.',
     metaTitle: 'GameFit — Fitness, Gamified',
     metaDescription:
-      'Only 3% of fitness app users are still active on day 30. GameFit fixes that with AI coaching, avatar evolution and social competition, grounded in peer-reviewed research.',
+      'Only 3% of fitness app users are still active on day 30. GameFit fixes that with AI coaching, a rank you can lose and social competition, grounded in peer-reviewed research.',
   },
   {
     id: 'stats',
@@ -33,7 +33,7 @@ export const sections: SectionMeta[] = [
     title: 'Not an app. An arena.',
     metaTitle: 'GameFit Features — AI Coaching and Deep Gamification',
     metaDescription:
-      'Three systems fused into one adaptive loop: an AI coach powered by Anthropic Claude, 25 evolving avatar tiers, and weekly social competition.',
+      'Three systems fused into one adaptive loop: an AI coach powered by Anthropic Claude, five ranks from Beginner to Elite, and weekly social competition.',
   },
   {
     id: 'leaderboard',

@@ -8,8 +8,8 @@ export interface Feature {
 export const features: Feature[] = [
   {
     title: 'Deep gamification',
-    body: 'XP and levels, 25 evolving avatar tiers rendered live, rank badges from Bronze to Apex, and a rewards marketplace. Strength, endurance, agility and recovery are tracked from every workout logged.',
-    tags: ['XP & levels', 'Avatar evolution', 'Rewards marketplace', 'STR/END/AGI/REC'],
+    body: 'XP and levels, rank badges from Beginner to Elite, ten illustrated athletes to train as, and a rewards marketplace. Strength, endurance, agility and recovery are tracked from every workout logged.',
+    tags: ['XP & levels', 'Athlete avatars', 'Rewards marketplace', 'STR/END/AGI/REC'],
     accent: 'gold',
   },
   {

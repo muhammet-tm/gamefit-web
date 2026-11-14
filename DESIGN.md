@@ -87,7 +87,8 @@ every route.
 that surface, so it is safe as body text on every ground.
 
 **Surface, not page, is the binding ground.** Tier labels and card text render
-on `--gf-surface`, which is lighter than the page. Bronze shipped briefly at
+on `--gf-surface`, which is lighter than the page. The tier-1 colour (then
+named Bronze, now the Beginner rank) shipped briefly at
 `#B5754A`, which passes on the page (4.72) and fails on a card (4.20). axe
 caught it. Always check the ground the text actually sits on.
 
@@ -103,8 +104,11 @@ caught it. Always check the ground the text actually sits on.
   per viewport", which every screen violated the moment a sticky header was
   added. A rule the codebase cannot satisfy is worse than no rule, because it
   trains everyone to ignore the document.*
-- Tier colours (bronze through apex) are a closed system. They identify rank
-  and nothing else, so a tier colour never doubles as a decorative accent.
+- Tier colours (`--color-tier-bronze` through `--color-tier-apex`, the
+  Beginner to Elite ranks) are a closed system. They identify rank and nothing
+  else, so a tier colour never doubles as a decorative accent. The ranks were
+  renamed from metals to training levels in November 2026; the colours and
+  the token names did not change.
 - Per-item accents are allowed where items are genuinely parallel and
   distinct — the three feature cards each take one of gold, slate, ember.
   That is categorisation, not decoration.
@@ -447,8 +451,10 @@ Things this site will not do, recorded so they don't creep back in:
 - Autoplaying video or carousels.
 - Cookie banners — there are no non-essential cookies to consent to.
 - Statistics without a cited source.
-- Claims the product cannot demonstrate. Specifically: the avatar system is
-  layered 2D SVG and is never described as 3D, and the AI coach is Anthropic
+- Claims the product cannot demonstrate. Specifically: the avatar is a 2D
+  illustration of one of ten preset athletes (since November 2026; before
+  that, a layered 2D SVG rig) and is never described as 3D or as evolving
+  through classes, and the AI coach is Anthropic
   Claude and is never described as OpenAI.
 - Fake urgency, countdown timers, or invented user counts.
 - A "founding team" grid implying employees. GameFit has one founder.

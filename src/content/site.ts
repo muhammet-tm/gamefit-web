@@ -2,7 +2,7 @@ export const site = {
   name: 'GameFit',
   tagline: 'Fitness that sticks. Finally.',
   description:
-    'GameFit turns workouts into an RPG — AI coaching, avatar evolution, XP progression and social competition in one adaptive loop, grounded in peer-reviewed behavioural science.',
+    'GameFit turns workouts into a game: AI coaching, XP progression, ranks and social competition in one adaptive loop, grounded in peer-reviewed behavioural science.',
   email: 'team.gamefit@gmail.com',
   linkedin: 'https://www.linkedin.com/in/muhammet-yalkapov',
   appUrl: 'https://gamefit-app.vercel.app',

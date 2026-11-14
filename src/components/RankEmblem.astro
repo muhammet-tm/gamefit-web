@@ -3,10 +3,14 @@
  * Rank shield, ported from the shipped app's `RankEmblem.jsx`. The geometry is
  * identical so the marketing site and the product draw the same object.
  *
- * The ladder is ten levels across five tiers: Bronze (L1-2), Silver (L3-4),
- * Gold (L5-6), Platinum (L7-9), Apex (L10). Sub-ranks are Roman numerals and
- * render as pips along the foot of the shield. Apex has no sub-rank; it gets
- * the crown mark instead.
+ * The ladder is ten levels across five tiers: Beginner (L1-2), Novice (L3-4),
+ * Intermediate (L5-6), Advanced (L7-9), Elite (L10). Sub-ranks are Roman
+ * numerals and render as pips along the foot of the shield. Elite has no
+ * sub-rank; it gets the crown mark instead.
+ *
+ * The names are the app's TIER_CONFIG labels since November 2026 (they were
+ * Bronze, Silver, Gold, Platinum and Apex). The colours did not change, so the
+ * colour tokens keep their metal names.
  */
 type Tier = 1 | 2 | 3 | 4 | 5;
 
@@ -22,11 +26,11 @@ interface Props {
 const { tier, size = 40, showLabel = false, sub = '', class: className = '' } = Astro.props;
 
 const TIERS: Record<Tier, { name: string; color: string }> = {
-  1: { name: 'Bronze', color: 'var(--color-tier-bronze)' },
-  2: { name: 'Silver', color: 'var(--color-tier-silver)' },
-  3: { name: 'Gold', color: 'var(--color-tier-gold)' },
-  4: { name: 'Platinum', color: 'var(--color-tier-platinum)' },
-  5: { name: 'Apex', color: 'var(--color-tier-apex)' },
+  1: { name: 'Beginner', color: 'var(--color-tier-bronze)' },
+  2: { name: 'Novice', color: 'var(--color-tier-silver)' },
+  3: { name: 'Intermediate', color: 'var(--color-tier-gold)' },
+  4: { name: 'Advanced', color: 'var(--color-tier-platinum)' },
+  5: { name: 'Elite', color: 'var(--color-tier-apex)' },
 };
 
 const rank = TIERS[tier];

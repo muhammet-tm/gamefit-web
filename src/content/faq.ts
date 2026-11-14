@@ -23,7 +23,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'What makes it different from every other fitness tracker?',
-    a: 'Most trackers record what you did. GameFit turns the record into progression: every workout earns XP and coins, keeps a streak alive, and moves you through ranks from Bronze to Apex while your avatar visibly evolves across five classes and five tiers. The design is grounded in peer-reviewed research on gamification and adherence rather than assembled from guesswork.',
+    a: 'Most trackers record what you did. GameFit turns the record into progression: every workout earns XP and coins, keeps a streak alive, and moves you through ranks from Beginner to Elite. Your avatar is one of ten illustrated athletes, two each for lifting, running, yoga, gymnastics and fighting, who celebrates a finished workout and wears an elite kit at the top rank. The design is grounded in peer-reviewed research on gamification and adherence rather than assembled from guesswork.',
   },
   {
     q: 'Which AI does the coach use?',
