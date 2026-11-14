@@ -5,7 +5,7 @@ import CountUp from '../islands/CountUp';
 
 // The ring geometry is computed once so the SVG, the resting arc and the
 // draw-from value cannot drift apart. 76% is illustrative: it is the same
-// "600 XP to Gold II" moment the chips below describe.
+// "600 XP to Intermediate II" moment the chips below describe.
 const R = 196;
 const C = 2 * Math.PI * R;
 const ARC = C * (1 - 0.76);
@@ -44,8 +44,15 @@ const ARC = C * (1 - 0.76);
       </div>
 
       <!-- Ignition: the avatar inside its XP ring is the product's core
-           readout, drawn from the app's own layered rig rather than a stock
-           illustration. The chips are the moments a workout produces. -->
+           readout. The picture is one of the app's own ten athletes (Nadia,
+           a Runner) in the pose the app shows after a finished workout, cut
+           as a round bust like the one inside Home's XP ring. The athlete
+           images carry their own charcoal stage, so they are framed in a
+           circle rather than cut out. Source: the owner's full-size
+           GameFit_athlete_nadia_celebrate.png, a centred 1300px square from
+           the top edge (wider than the app's bust so the raised fist clears
+           the circle), resized to 360 and 720. The chips are the moments a
+           workout produces. -->
       <div class="gf-hero-step relative mx-auto w-full max-w-[440px]" style="--gf-i:2">
         <div class="relative aspect-square">
           <div aria-hidden="true" class="absolute inset-[22%] rounded-full bg-gf-red opacity-40 blur-[70px]"></div>
@@ -67,17 +74,19 @@ const ARC = C * (1 - 0.76);
               style={`stroke-dashoffset:${ARC};--gf-ring-from:${C}`} />
           </svg>
           <img
-            src="/avatars/apex-warrior-300.webp"
-            srcset="/avatars/apex-warrior-300.webp 300w, /avatars/apex-warrior-600.webp 600w"
-            sizes="(max-width: 1024px) 50vw, 240px"
-            width="300" height="420"
+            src="/athletes/nadia-celebrate-bust-360.webp"
+            srcset="/athletes/nadia-celebrate-bust-360.webp 360w, /athletes/nadia-celebrate-bust-720.webp 720w"
+            sizes="(max-width: 480px) 70vw, 334px"
+            width="360" height="360"
             loading="eager" fetchpriority="high" decoding="async"
-            alt="An Apex-rank Warrior avatar with an ember aura, the top of GameFit's five ranks"
-            class="absolute left-1/2 top-1/2 w-[52%] -translate-x-1/2 -translate-y-1/2"
+            alt="Nadia, one of the ten athletes you can train as in GameFit, raising a fist after a finished workout"
+            class="absolute left-1/2 top-1/2 w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_1.5px_rgba(185,196,204,0.35)]"
           />
         </div>
 
-        <div class="gf-float absolute -left-2 top-[6%] flex items-center gap-3 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3 sm:-left-8" style="--gf-f:0s">
+        <!-- Top right on phones: at that width the chip is wide enough to
+             cover Nadia's raised fist on the left. -->
+        <div class="gf-float absolute -right-2 top-[3%] flex items-center gap-3 rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3 sm:right-auto sm:-left-8 sm:top-[6%]" style="--gf-f:0s">
           <span class="font-mono text-lg font-medium text-gf-gold tabular-nums">+180 XP</span>
           <span class="text-xs text-gf-muted">HIIT, 45 min</span>
         </div>
@@ -89,8 +98,8 @@ const ARC = C * (1 - 0.76);
 
         <div class="gf-float absolute bottom-[2%] left-[4%] w-[62%] max-w-[260px] rounded-[var(--radius-lg)] border border-gf-border bg-gf-surface px-4 py-3" style="--gf-f:1.4s">
           <div class="flex justify-between text-xs font-semibold">
-            <span class="text-tier-silver">Silver I</span>
-            <span class="text-tier-gold">Gold II</span>
+            <span class="text-tier-silver">Novice I</span>
+            <span class="text-tier-gold">Intermediate II</span>
           </div>
           <div class="mt-2 h-2 overflow-hidden rounded-full bg-gf-elevated">
             <div class="h-full w-[76%] rounded-full bg-[linear-gradient(90deg,var(--color-gf-red),var(--color-gf-ember))]"></div>

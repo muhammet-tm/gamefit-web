@@ -4,9 +4,9 @@
 
 ### Fitness that sticks. Finally.
 
-Turning workouts into an RPG — AI coaching, avatar evolution, XP progression
-and social competition in one adaptive loop, grounded in peer-reviewed
-behavioural science.
+Turning workouts into a game: AI coaching, XP progression, ranks and social
+competition in one adaptive loop, grounded in peer-reviewed behavioural
+science.
 
 [**Visit the site**](https://gamefit-web.vercel.app) &nbsp;·&nbsp;
 [**Try the app**](https://gamefit-app.vercel.app) &nbsp;·&nbsp;
@@ -38,14 +38,14 @@ competence, relatedness.
 | | |
 |---|---|
 | **AI coaching** | Personalised plans, nutrition guidance and 24/7 feedback, powered by Anthropic Claude Haiku 4.5. Every call runs server-side; the model never sees data from the browser. |
-| **Deep gamification** | XP and levels, 25 evolving avatar tiers rendered live, rank badges from Bronze to Apex, and four attributes tracked from every workout logged. |
+| **Deep gamification** | XP and levels, rank badges from Beginner to Elite, ten illustrated athletes to train as, and four attributes tracked from every workout logged. |
 | **Social competition** | Global and friends leaderboards that reset every Monday, with coins redeemable for real fitness rewards. |
 
 <table>
 <tr>
 <td width="33%"><img src="public/screens/dashboard-420.webp" alt="GameFit home screen showing rank, XP progress and streak" /></td>
 <td width="33%"><img src="public/screens/coach-420.webp" alt="The AI coach screen with a personalised plan" /></td>
-<td width="33%"><img src="public/screens/leaderboard-420.webp" alt="The weekly leaderboard with ranked players" /></td>
+<td width="33%"><img src="public/screens/leaderboard-420.webp" alt="The leaderboard, with each player shown as their athlete" /></td>
 </tr>
 </table>
 
@@ -106,7 +106,7 @@ that breaks any of these fails.
 | Gate | What it does |
 |---|---|
 | **Accessibility** | axe-core on every route, zero violations, WCAG 2.1 AA. Runs on Chromium and WebKit. |
-| **Content accuracy** | Fails if the site ever claims OpenAI, GPT-4, a 3D avatar, a superseded survey figure, a fundraising amount or a sample size. Each was a real inaccuracy on an earlier version of this site. |
+| **Content accuracy** | Fails if the site ever claims OpenAI, GPT-4, a 3D avatar, a superseded survey figure, a fundraising amount or a sample size, or names a rank or class the app has retired. Each was a real inaccuracy on an earlier version of this site. |
 | **Security policy** | Loads every page under the real production headers and asserts zero CSP violations, intact structured data and hydrating islands. |
 | **Asset budgets** | JavaScript under 30 KB gzipped, CSS under 20 KB. Currently 16.5 KB and 14 KB. |
 | **Responsive** | No page scrolls sideways at 375, 768 or 1440px. Every image declares its dimensions. |

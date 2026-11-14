@@ -8,36 +8,39 @@
  * rather than a dark template with an accent colour.
  *
  * Tier colours come from tokens.css, which mirrors the app's TIER_CONFIG, so
- * the emblems here and the emblems in the product are the same object.
+ * the emblems here and the emblems in the product are the same object. The
+ * names are the app's labels since November 2026; the colours kept their
+ * metal token names, so each tier names its token explicitly rather than
+ * deriving it from the label.
  */
 import SectionShell from '../components/SectionShell.astro';
 import RankEmblem from '../components/RankEmblem.astro';
 
 const tiers = [
-  { tier: 1 as const, name: 'Bronze', levels: 'Level 1–2', sub: 'II' },
-  { tier: 2 as const, name: 'Silver', levels: 'Level 3–4', sub: 'II' },
-  { tier: 3 as const, name: 'Gold', levels: 'Level 5–6', sub: 'II' },
-  { tier: 4 as const, name: 'Platinum', levels: 'Level 7–9', sub: 'III' },
-  { tier: 5 as const, name: 'Apex', levels: 'Level 10', sub: '' },
+  { tier: 1 as const, name: 'Beginner', color: 'var(--color-tier-bronze)', levels: 'Level 1–2', sub: 'II' },
+  { tier: 2 as const, name: 'Novice', color: 'var(--color-tier-silver)', levels: 'Level 3–4', sub: 'II' },
+  { tier: 3 as const, name: 'Intermediate', color: 'var(--color-tier-gold)', levels: 'Level 5–6', sub: 'II' },
+  { tier: 4 as const, name: 'Advanced', color: 'var(--color-tier-platinum)', levels: 'Level 7–9', sub: 'III' },
+  { tier: 5 as const, name: 'Elite', color: 'var(--color-tier-apex)', levels: 'Level 10', sub: '' },
 ];
 ---
 <SectionShell id="ranks" band="surface" title="You don't earn points. You hold a rank.">
   <p class="mt-6 max-w-[62ch] text-lg text-gf-muted">
     Points only go up, so they stop meaning anything. A rank can fall. Miss a
-    week and Gold I becomes Gold II, and you feel it. That is the whole
-    mechanic, and it is the reason the streak matters.
+    week and Intermediate I becomes Intermediate II, and you feel it. That is
+    the whole mechanic, and it is the reason the streak matters.
   </p>
 
   <ol class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
     {tiers.map((t) => (
       <li
-        class="gf-rank-step rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-5"
-        style={`border-color: color-mix(in srgb, var(--color-tier-${t.name.toLowerCase()}) 34%, transparent)`}
+        class="gf-rank-step rounded-[var(--radius-lg)] border border-gf-border bg-gf-bg p-5 lg:px-4 xl:px-5"
+        style={`border-color: color-mix(in srgb, ${t.color} 34%, transparent)`}
       >
         <RankEmblem tier={t.tier} sub={t.sub} size={36} />
         <p
           class="mt-4 font-display text-[length:var(--text-h3)] uppercase"
-          style={`color: var(--color-tier-${t.name.toLowerCase()})`}
+          style={`color: ${t.color}`}
         >
           {t.name}
         </p>

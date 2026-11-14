@@ -4,7 +4,16 @@ import { ROUTES } from './routes';
 const BANNED = [
   { pattern: /OpenAI/i, why: 'The app calls Anthropic Claude, not OpenAI (spec §5.2)' },
   { pattern: /GPT-4/i, why: 'The app calls Anthropic Claude, not GPT-4 (spec §5.2)' },
-  { pattern: /3D character|3D avatar/i, why: 'The avatar system is layered 2D SVG (spec §5.2)' },
+  { pattern: /3D character|3D avatar/i, why: 'The avatar is a 2D illustration of a preset athlete (spec §5.2)' },
+  // November 2026: the app renamed its ranks and replaced the RPG classes with
+  // ten preset athletes (app repo, src/components/avatar/tiers.js and
+  // athletes.js). Silver and Gold are ordinary words, so they are banned only
+  // where they read as a rank ("Gold II", "Silver rank"). Case-insensitive
+  // because innerText applies CSS text-transform: rank labels read "BRONZE".
+  { pattern: /\b(Bronze|Platinum|Apex)\b/i, why: 'Ranks are Beginner, Novice, Intermediate, Advanced and Elite' },
+  { pattern: /\b(Silver|Gold)\s+(I{1,3}\b|rank)/i, why: 'Ranks are Beginner, Novice, Intermediate, Advanced and Elite' },
+  { pattern: /\b(Warrior|Mage|Archer|Knight|Ninja)s?\b/i, why: 'The classes are now disciplines: Lifter, Runner, Fighter, Gymnast and Yogi' },
+  { pattern: /five classes|evolving avatar|avatar evolution/i, why: 'The avatar is a preset athlete, not a drawn rig that evolves by tier' },
   { pattern: /88%/, why: 'The survey figure is 78%, not 88% (spec §5.2)' },
   // Matches any $NNK figure rather than one specific number, so it still
   // holds if the target changes and it names nothing in a public repo.

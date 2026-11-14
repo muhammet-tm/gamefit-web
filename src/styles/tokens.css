@@ -27,7 +27,10 @@
   /* Rank tier colors — identical to the shipped app's TIER_CONFIG in
      src/components/avatar/tiers.js, so the site's emblems and the product's
      emblems are the same object. Change both together.
-     Apex moved off violet (#9664FF), which measured 3.36:1 and failed AA. */
+     Apex moved off violet (#9664FF), which measured 3.36:1 and failed AA.
+     Since November 2026 the ranks read Beginner, Novice, Intermediate,
+     Advanced and Elite (tiers 1 to 5). The colours are unchanged, so these
+     tokens keep the metal names, as the app's tiers.js comments do. */
   --color-tier-bronze: #C08657;
   --color-tier-silver: #B9C4CC;
   --color-tier-gold: #F4B044;
