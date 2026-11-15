@@ -1,3 +1,4 @@
+import { COACH_NAME } from '../content/coach';
 import type { APIRoute } from 'astro';
 import { faqs } from '../content/faq';
 
@@ -30,7 +31,7 @@ export const GET: APIRoute = ({ site }) => {
     '',
     // Stated positively on purpose. Naming a wrong answer in order to deny it
     // puts that word in the document, where a careless reader will find it.
-    '- The AI coach, Coach G, is built on Anthropic Claude.',
+    `- The AI coach, ${COACH_NAME}, is built on Anthropic Claude.`,
     '- The avatar is a 2D illustration of one of ten preset athletes, two per',
     '  discipline: Lifter, Runner, Fighter, Gymnast and Yogi.',
     '- The five ranks are Beginner, Novice, Intermediate, Advanced and Elite.',

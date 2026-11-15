@@ -1,3 +1,4 @@
+import { COACH_NAME } from './coach';
 /**
  * Frequently asked questions.
  *
@@ -27,7 +28,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Which AI does the coach use?',
-    a: 'Coach G is built on Anthropic Claude. It never runs in your browser and never sees an API key on your device — every request goes through our server, which adds your profile context and enforces safety rules, including more conservative guidance for anyone under 18.',
+    a: `${COACH_NAME} is built on Anthropic Claude. It never runs in your browser and never sees an API key on your device — every request goes through our server, which adds your profile context and enforces safety rules, including more conservative guidance for anyone under 18.`,
   },
   {
     q: 'Can someone cheat their way up the leaderboard?',
