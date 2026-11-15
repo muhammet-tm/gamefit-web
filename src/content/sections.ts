@@ -1,3 +1,4 @@
+import { COACH_NAME } from './coach';
 export interface SectionMeta {
   id: string;
   route: string | null;
@@ -78,7 +79,7 @@ export const sections: SectionMeta[] = [
     title: 'Questions, answered.',
     metaTitle: 'GameFit FAQ — Pricing, AI Coaching and Your Data',
     metaDescription:
-      'What GameFit costs, which AI powers Coach G, why the leaderboard cannot be cheated, when the mobile apps arrive, and how to delete your data.',
+      `What GameFit costs, which AI powers ${COACH_NAME}, why the leaderboard cannot be cheated, when the mobile apps arrive, and how to delete your data.`,
   },
   {
     id: 'contact',

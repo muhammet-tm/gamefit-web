@@ -1,3 +1,4 @@
+import { COACH_NAME } from './coach';
 export interface Feature {
   title: string;
   body: string;
@@ -13,7 +14,7 @@ export const features: Feature[] = [
     accent: 'gold',
   },
   {
-    title: 'AI Coach G',
+    title: `AI ${COACH_NAME}`,
     body: 'Coaching powered by Anthropic Claude Haiku 4.5 that adapts in real time. Personalised workout plans, nutrition guidance and 24/7 feedback that gets sharper with every session. The model never sees your data from the browser — every call runs server-side.',
     tags: ['Anthropic Claude', 'Nutrition plans', 'Adaptive loop', '24/7 available'],
     accent: 'slate',
